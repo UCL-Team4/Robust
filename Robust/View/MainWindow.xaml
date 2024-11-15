@@ -5,8 +5,82 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Robust"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="550" Width="800">
+    <Window.Resources>
+        <DataTemplate
+            x:Key="ProductTemplate">
+            <StackPanel>
+                <Image
+                    Width="200"
+                    Height="200"
+                    Margin="10">
+                    <Image.Source>
+                        <BitmapImage
+                            UriSource="{Binding ImagePath}" />
+                    </Image.Source>                    
+                </Image>
+                <TextBlock 
+                    Text="{Binding Name}"
+                    HorizontalAlignment="Center"
+                    FontWeight="Bold"/>
+                <TextBlock
+                    Text="{Binding Description}"
+                    HorizontalAlignment="Center"
+                    Width="200"
+                    TextWrapping="Wrap"
+                    TextAlignment="Center"/>
+                <TextBlock
+                    Text="{Binding Price, StringFormat='{}{0} kr.'}"
+                    HorizontalAlignment="Center" />
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition 
+                Height="50"/>
+            <RowDefinition 
+                Height="75"/>
+            <RowDefinition 
+                Height="75"/>
+            <RowDefinition 
+                Height="1*"/>
+        </Grid.RowDefinitions>
 
+        <TextBlock 
+            Grid.Row="1"
+            Text="Robust Hjælpemidler"
+            FontSize="45"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            />
+
+        <StackPanel 
+            Grid.Row="2" 
+            Orientation="Horizontal">
+            <ComboBox
+                Margin="20"
+                Width="200"
+                Height="30"
+                ItemsSource="{Binding Categories}"
+                SelectedItem="{Binding SelectedCategory}"
+                />            
+        </StackPanel>
+
+        <ScrollViewer 
+            VerticalScrollBarVisibility="Auto"
+            Grid.Row="3">
+            <ItemsControl
+                ItemsSource="{Binding SelectedProducts}"
+                ItemTemplate="{StaticResource ProductTemplate}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel 
+                            Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </Window>
