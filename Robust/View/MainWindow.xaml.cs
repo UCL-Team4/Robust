@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Robust.ViewModel.ProductViewModel;
 
 namespace Robust.View.MainWindow;
 
@@ -19,5 +20,8 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+
+        ProductViewModel pvm = new ProductViewModel();
+        DataContext = pvm;
     }
 }
