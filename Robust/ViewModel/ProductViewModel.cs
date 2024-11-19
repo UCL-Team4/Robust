@@ -34,13 +34,34 @@ internal class ProductViewModel : ViewModelBase
             _selectedCategory = value;
             OnPropertyChanged();
             DisplayProducts();
-            CheckDisplayAll();
-            CheckAvailability();            
+        }
+    }
+
+    //This is the main method of filtering products
+    private void DisplayProducts()
+    {
+        if (SelectedProducts.Count > 0)
+        {
+            SelectedProducts.Clear();
+        }
+
+        if (SelectedCategory == Category.AlleKategorier)
+        {
+            DisplayAllProducts();
+        }
+        else
+        {
+            DisplayCategoryProducts();
+        }
+
+        if (SelectedProducts.Count == 0)
+        {
+            DisplayAvailabilityError();
         }
     }
 
     //This method displays products from SelectedProducts which have the SelectedCategory.
-    private void DisplayProducts()
+    private void DisplayCategoryProducts()
     {
         SelectedProducts.Clear();
         
@@ -54,24 +75,18 @@ internal class ProductViewModel : ViewModelBase
     }
 
     //This method checks if the category 'AlleKategorier' is selected.
-    private void CheckDisplayAll()
+    private void DisplayAllProducts()
     {
-        if (SelectedCategory == Category.AlleKategorier)
+        foreach (Product product in Products)
         {
-            foreach (Product product in Products)
-            {
-                SelectedProducts.Add(product);
-            }
+            SelectedProducts.Add(product);
         }
     }
 
     //This method shows a messagebox if there are no products in the chosen category.
-    private void CheckAvailability()
+    private void DisplayAvailabilityError()
     {
-        if (SelectedProducts.Count == 0)
-        {
-            MessageBox.Show("Vi kunne desværre ikke finde nogen produkter, som matcher din søgning. Prøv en anden kategori.");
-        }
+        MessageBox.Show("Vi kunne desværre ikke finde nogen produkter, som matcher din søgning. Prøv en anden kategori.");
     }
 
     //This method fills the collection SelectedProducts with all products from the collection Products.
@@ -112,16 +127,8 @@ internal class ProductViewModel : ViewModelBase
     public ProductViewModel()
     { 
         Categories = new ObservableCollection<Category>(Enum.GetValues(typeof(Category)).Cast<Category>());
-        
         SelectedProducts = new ObservableCollection<Product>();
         
-        Products = new ObservableCollection<Product>
-        {
-            new Product { Name = "Bustur", Category = Category.Transport, Description = "Et piktogram, der forestiller en bus", ImagePath = "C:/temp/Robust/Bus.jpg", Price = 38.00M },
-            new Product { Name = "Håndvask", Category = Category.Hygiejne, Description = "Et piktogram, som viser håndvask", ImagePath = "C:/temp/Robust/Handwashing.jpeg", Price = 38.00M },
-            new Product { Name = "Indkøbsvogn", Category = Category.IndkobOgShopping, Description = "Et piktogram, som viser en indkøbsvogn med varer", ImagePath = "C:/temp/Robust/ShoppingCart.jpg", Price = 38.00M }
-        };
-
         FillSelectedProducts();
     }
 }
