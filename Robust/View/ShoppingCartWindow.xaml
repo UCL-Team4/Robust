@@ -1,0 +1,123 @@
+﻿<Window x:Class="Robust.View.ShoppingCartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Robust.View"
+        mc:Ignorable="d"
+        Title="ShoppingCartWindow" Height="550" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="50" />
+            <RowDefinition
+                Height="75" />
+            <RowDefinition
+                Height="75" />
+            <RowDefinition
+                Height="1*" />
+            <RowDefinition
+                Height="30" />
+            <RowDefinition
+                Height="50" />
+        </Grid.RowDefinitions>
+
+        <!--<StackPanel
+        Grid.Row="0"
+        Orientation="Horizontal"
+        HorizontalAlignment="Right">
+        <Button
+            Margin="0,5,20,0"
+            Command="{Binding ShowShoppingCartCommand}">
+            <Button.Content>
+                <Image
+                    Source="C:/temp/Robust/ShoppingCartWebshop.jpg"
+                    Width="40"
+                    Height="40" />
+            </Button.Content>
+        </Button>
+    </StackPanel>-->
+
+        <TextBlock
+            Grid.Row="1"
+            Text="Robust Hjælpemidler ApS"
+            FontSize="45"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" />
+
+        <StackPanel
+            Grid.Row="2"
+            Orientation="Horizontal">
+            <TextBlock
+                Text="Indkøbskurv"
+                Margin="20"
+                FontSize="30" />
+        </StackPanel>
+
+        <DataGrid
+            Grid.Row="3"
+            Margin="20"
+            IsReadOnly="True"
+            AutoGenerateColumns="False"
+            ItemsSource="{Binding ShoppingCartList}"
+            SelectedItem="{Binding SelectedProduct}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn
+                    Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image
+                                Source="{Binding ImagePath}"
+                                Width="50"
+                                Height="50" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn
+                    Header="Varenavn"
+                    Binding="{Binding Name}"
+                    Width="4*" />
+                <DataGridTextColumn
+                    Header="Antal"
+                    Binding="{Binding NumberOfItems}"
+                    Width="2*" />
+                <DataGridTextColumn
+                    Header="Pris"
+                    Binding="{Binding Price}"
+                    Width="2*" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel
+            Grid.Row="4"
+            Orientation="Horizontal"
+            HorizontalAlignment="Right">
+            <TextBlock
+                Text="I alt:"
+                FontSize="15" />
+            <Label
+                Content="{Binding TotalPrice}"
+                Width="50" />
+            <TextBlock
+                Text="DKK"
+                FontSize="15"
+                Margin="0,0,20,0" />
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="5"
+            Orientation="Horizontal"
+            HorizontalAlignment="Right">
+            <Button
+                Width="100"
+                Margin="0,0,20,5"
+                Content="Slet valgte"
+                Command="{Binding DeleteSelectedProductCommand}" />
+            <Button
+                Width="100"
+                Margin="0,0,20,5"
+                Content="Til bestilling"
+                Command="{Binding ToCheckoutCommand}" />
+        </StackPanel>
+    </Grid>
+</Window>
