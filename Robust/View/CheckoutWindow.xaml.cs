@@ -11,17 +11,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Robust.ViewModel;
-using Robust.ViewModel.ProductViewModel;
 
 namespace Robust.View
 {
     /// <summary>
-    /// Interaction logic for ShoppingCartWindow.xaml
+    /// Interaction logic for CheckoutWindow.xaml
     /// </summary>
-    public partial class ShoppingCartWindow : Window
+    public partial class CheckoutWindow : Window
     {
-        public ShoppingCartWindow()
+        public CheckoutWindow()
         {
             InitializeComponent();
         }

@@ -44,18 +44,6 @@ internal class ProductViewModel : ViewModelBase
         }
     }
 
-    private Product _selectedProduct;
-
-    public Product SelectedProduct
-    {
-        get { return _selectedProduct; }
-        set 
-        { 
-            _selectedProduct = value;
-            OnPropertyChanged();
-        }
-    }
-
     //This is the main method of filtering products
     private void DisplayProducts()
     {
@@ -147,6 +135,7 @@ internal class ProductViewModel : ViewModelBase
         Categories = new ObservableCollection<Category>(Category.GetValues(typeof(Category)).Cast<Category>());
         SelectedProducts = new ObservableCollection<Product>();
         _windowService = new WindowService();
+        ShoppingCartList = new ObservableCollection<Product>();
 
         //Added only for debugging purposes
         Products = new ObservableCollection<Product>
@@ -156,7 +145,11 @@ internal class ProductViewModel : ViewModelBase
             new Product {Name = "Indkøbsvogn", Category = Category.IndkobOgShopping, Description = "Et piktogram, som forestiller en indkøbsvogn", ImagePath = "C:/temp/Robust/ShoppingCart.jpg", Price = 38.00M},
             new Product {Name = "Taxa", Category = Category.Transport, Description = "Et piktogram, som forestiller en taxa", ImagePath = "C:/temp/Robust/Taxi.jpg", Price = 38.00M}
         };
-        
+
+        //Added only for debugging purposes
+        ShoppingCartList.Add(Products[0]);
+        ShoppingCartList.Add(Products[1]);
+
         FillSelectedProducts();
     }
 
@@ -164,17 +157,25 @@ internal class ProductViewModel : ViewModelBase
 
     private void ShowShoppingCart()
     {
-        _windowService.ShowDialog();
+        _windowService.ShowDialog(ShoppingCartList);        
     }
 
     //public RelayCommand AddProductToCartCmd => new RelayCommand(AddProductToCart);
-    
 
-    private void AddProductToCart(object item)
-    {
-        var product = item as Product;
-        int index = SelectedProducts.IndexOf(product);
-        MessageBox.Show($"Du har trykket på box nr. {index}");
-        //ShoppingCartList.Add(SelectedProduct);
-    }
+    //private void AddProductToCart(object item)
+    //{
+    //    var product = item as Product;
+    //    int index = SelectedProducts.IndexOf(product);
+    //    MessageBox.Show($"Du har trykket på box nr. {index}");
+
+    //    if (!ShoppingCartList.Contains(SelectedProducts[index]))
+    //    {
+    //        ShoppingCartList.Add(SelectedProducts[index]);
+    //        SelectedProducts[index].StockQuantity++;
+    //    }
+    //    else
+    //    {
+    //        SelectedProducts[index].StockQuantity++;
+    //    }
+    //}
 }
