@@ -19,22 +19,13 @@ public class RelayCommand : ICommand
         _CANEXECUTE = canExecute ?? (() => true);
     }
 
-    //Test
-    private readonly Predicate<object> _canExecute;
-    private readonly Action<object> _action;
-    public RelayCommand(Action<object> action) { _action = action; _canExecute = null; }
-    public RelayCommand(Action<object> action, Predicate<object> canExecute) { _action = action; _canExecute = canExecute; }
-    public void Execute(object? o) => _action(o);
-    public bool CanExecute(object? o) => _canExecute == null ? true : _canExecute(o);
-    //
+    public bool CanExecute(object? parameter)
+    {
+        return _CANEXECUTE();
+    }
 
-    //public bool CanExecute(object? parameter)
-    //{
-    //    return _CANEXECUTE();
-    //}
-
-    //public void Execute(object? parameter)
-    //{
-    //    _EXECUTE();
-    //}
+    public void Execute(object? parameter)
+    {
+        _EXECUTE();
+    }
 }

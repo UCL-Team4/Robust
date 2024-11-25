@@ -7,8 +7,9 @@
     xmlns:local="clr-namespace:Robust"
     mc:Ignorable="d"
     Title="MainWindow"
-    Height="550"
-    Width="895">
+    Height="650"
+    Width="900"
+    WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition 
@@ -18,7 +19,9 @@
             <RowDefinition 
                 Height="75"/>
             <RowDefinition 
-                Height="1*"/>
+                Height="*"/>
+            <RowDefinition
+                Height="75" />
         </Grid.RowDefinitions>
 
         <StackPanel
@@ -28,12 +31,10 @@
             <Button
                 Margin="0,5,20,0"
                 Command="{Binding ShowShoppingCartCmd}">
-                <Button.Content>
-                    <Image                        
-                        Source="C:/temp/Robust/ShoppingCartWebshop.jpg" 
-                        Width="40"
-                        Height="40"/>
-                </Button.Content>
+                <Image
+                    Source="C:/temp/Robust/ShoppingCartWebshop.jpg"
+                    Width="40"
+                    Height="40" />
             </Button>
         </StackPanel>
         
@@ -56,7 +57,77 @@
                 SelectedItem="{Binding SelectedCategory}"/>            
         </StackPanel>
 
-        <!--The following control is inspired by this tutorial: https://www.youtube.com/watch?v=aRYiUyz2_RM&t=24s-->
+        <ScrollViewer
+            Grid.Row="3"
+            Margin="20,0"
+            VerticalScrollBarVisibility="Auto">
+            <ListBox
+                ItemsSource="{Binding SelectedProducts}"
+                SelectedItem="{Binding SelectedProduct}"
+                HorizontalContentAlignment="Stretch">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            BorderBrush="LightGray"
+                            BorderThickness="2"
+                            CornerRadius="2"
+                            Width="600">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition 
+                                        Width="Auto"/>
+                                    <ColumnDefinition
+                                        Width="*" />
+                                    <ColumnDefinition
+                                        Width="*" />
+                                    <ColumnDefinition
+                                        Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image 
+                                    Grid.Column="0"
+                                    Source="{Binding ImagePath}"
+                                    Width="150"
+                                    Height="150"/>
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Text="{Binding Name}" 
+                                    VerticalAlignment="Center"
+                                    FontWeight="Bold"
+                                    FontSize="15"
+                                    HorizontalAlignment="Center"/>
+                                <TextBlock
+                                    Grid.Column="2"
+                                    Text="{Binding Description}"
+                                    TextWrapping="Wrap"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    FontSize="15" />
+                                <TextBlock
+                                    Grid.Column="3"
+                                    Text="{Binding Price,StringFormat={}{0} DKK}"
+                                    VerticalAlignment="Center"
+                                    FontSize="15"
+                                    HorizontalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+
+        <StackPanel
+            Grid.Row="4"
+            Orientation="Horizontal"
+            HorizontalAlignment="Right">
+            <Button
+                Width="100"
+                Height="50"
+                Margin="0,0,20,5"
+                Content="Tiløj til kurv"
+                Command="{Binding AddProductToCartCmd}" />
+        </StackPanel>
+
+        <!--The following control is inspired by this tutorial: https://www.youtube.com/watch?v=aRYiUyz2_RM&t=24s--><!--
         <ScrollViewer
             Grid.Row="3"
             Margin="20,0"
@@ -123,6 +194,6 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-        </ScrollViewer>
+        </ScrollViewer>-->
     </Grid>
 </Window>

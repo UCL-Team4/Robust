@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Robust.View"
         mc:Ignorable="d"
-        Title="CheckoutWindow" Height="550" Width="800">
+        Title="CheckoutWindow" Height="650" Width="900"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition
@@ -15,7 +16,7 @@
             <RowDefinition
                 Height="*" />
             <RowDefinition
-                Height="50" />
+                Height="75" />
         </Grid.RowDefinitions>
 
         <TextBlock
@@ -88,7 +89,8 @@
                         MinHeight="275">
                         <RadioButton
                             Margin="0,0,0,5"
-                            GroupName="Delivery">
+                            GroupName="Delivery"
+                            IsChecked="True">
                             <WrapPanel>
                                 <TextBlock
                                     Text="GLS pakkeshop (28.00 DKK)"/>
@@ -127,7 +129,8 @@
                     BorderThickness="2"
                     CornerRadius="2">
                     <ScrollViewer
-                        MinHeight="275">
+                        MinHeight="275"
+                        VerticalScrollBarVisibility="Auto">
                         <DataGrid
                             AutoGenerateColumns="False"
                             IsReadOnly="True"
@@ -219,6 +222,7 @@
                 Text="{Binding TotalPrice}"/>
             <Button
                 Width="100"
+                Height="50"
                 Margin="0,0,20,5"
                 Content="Bekræft køb"
                 Command="{Binding CheckoutCmd}" />

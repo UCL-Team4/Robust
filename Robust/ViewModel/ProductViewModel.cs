@@ -44,6 +44,18 @@ internal class ProductViewModel : ViewModelBase
         }
     }
 
+    private Product _selectedProduct;
+
+    public Product SelectedProduct
+    {
+        get { return _selectedProduct; }
+        set 
+        { 
+            _selectedProduct = value;
+            OnPropertyChanged();
+        }
+    }
+
     //This is the main method of filtering products
     private void DisplayProducts()
     {
@@ -146,10 +158,6 @@ internal class ProductViewModel : ViewModelBase
             new Product {Name = "Taxa", Category = Category.Transport, Description = "Et piktogram, som forestiller en taxa", ImagePath = "C:/temp/Robust/Taxi.jpg", Price = 38.00M}
         };
 
-        //Added only for debugging purposes
-        ShoppingCartList.Add(Products[0]);
-        ShoppingCartList.Add(Products[1]);
-
         FillSelectedProducts();
     }
 
@@ -160,22 +168,26 @@ internal class ProductViewModel : ViewModelBase
         _windowService.ShowDialog(ShoppingCartList);        
     }
 
-    //public RelayCommand AddProductToCartCmd => new RelayCommand(AddProductToCart);
+    public RelayCommand AddProductToCartCmd => new RelayCommand(AddProductToCart, CanAddProductToCart);
 
-    //private void AddProductToCart(object item)
-    //{
-    //    var product = item as Product;
-    //    int index = SelectedProducts.IndexOf(product);
-    //    MessageBox.Show($"Du har trykket på box nr. {index}");
+    private void AddProductToCart()
+    {
+        MessageBox.Show($"Produktet {SelectedProduct.Name} blev tilføjet til kurven");
 
-    //    if (!ShoppingCartList.Contains(SelectedProducts[index]))
-    //    {
-    //        ShoppingCartList.Add(SelectedProducts[index]);
-    //        SelectedProducts[index].StockQuantity++;
-    //    }
-    //    else
-    //    {
-    //        SelectedProducts[index].StockQuantity++;
-    //    }
-    //}
+        //We should maybe include a property connected to Product called Quantity. Here we use StockQuantity as a measure of how many items of each Product there are.
+        if (!ShoppingCartList.Contains(SelectedProduct))
+        {
+            ShoppingCartList.Add(SelectedProduct);
+            SelectedProduct.StockQuantity++;
+        }
+        else
+        {
+            SelectedProduct.StockQuantity++;
+        }
+    }
+
+    private bool CanAddProductToCart()
+    {
+        return SelectedProduct != null;
+    }
 }
