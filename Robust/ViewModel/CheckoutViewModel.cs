@@ -9,7 +9,7 @@ using Robust.Model.Product;
 using Robust.MVVM.ViewModelBase;
 using Robust.ViewModel.RelayCommands;
 
-namespace Robust.ViewModel
+namespace Robust.ViewModel.CheckoutViewModel
 {
     internal class CheckoutViewModel : ViewModelBase
     {

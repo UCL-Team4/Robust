@@ -9,11 +9,10 @@ using Robust.Model.Product;
 using Robust.View;
 using Robust.ViewModel;
 
-namespace Robust.Service
+namespace Robust.Service.Interface;
+
+internal interface IWindowService
 {
-    internal interface IWindowService
-    {
-        //The parameter should probably be removed when we implement the database.
-        void ShowDialog(ObservableCollection<Product> list);
-    }
+    //The parameter should probably be removed when we implement the database.
+    void ShowDialog(ObservableCollection<Product> list);
 }

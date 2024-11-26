@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Robust.Model.Product;
-using Robust.Service;
+using Robust.Service.Interface;
+using Robust.Service.CheckOutWindow;
 using Robust.ViewModel.RelayCommands;
 using Robust.MVVM.ViewModelBase;
 
-namespace Robust.ViewModel
+namespace Robust.ViewModel.ShoppingCart
 {
     public class ShoppingCartViewModel : ViewModelBase
     {
@@ -74,10 +75,7 @@ namespace Robust.ViewModel
             TotalPrice = 0;
         }
 
-        private bool CanDeleteSelectedProduct()
-        {
-            return SelectedProduct != null;
-        }
+        private bool CanDeleteSelectedProduct() => SelectedProduct != null;
 
         public ShoppingCartViewModel(ObservableCollection<Product> list) 
         {

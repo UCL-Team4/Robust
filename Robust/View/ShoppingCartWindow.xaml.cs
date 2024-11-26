@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 using Robust.ViewModel;
 using Robust.ViewModel.ProductViewModel;
 
-namespace Robust.View
+namespace Robust.View.ShoppingCart
 {
     /// <summary>
     /// Interaction logic for ShoppingCartWindow.xaml

@@ -9,7 +9,8 @@ using System.Collections.ObjectModel;
 using Robust.Enums.Category;
 using System.Windows;
 using Robust.ViewModel.RelayCommands;
-using Robust.Service;
+using Robust.Service.Interface;
+using Robust.Service.ShoppingCart;
 using Robust.View;
 using System.Reflection.Metadata;
 
