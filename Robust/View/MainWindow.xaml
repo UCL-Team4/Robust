@@ -49,12 +49,22 @@
         <StackPanel 
             Grid.Row="2" 
             Orientation="Horizontal">
+            <Label
+                Content="Vælg kategori:"
+                VerticalContentAlignment="Center"
+                Margin="20,0,0,0" />
             <ComboBox
-                Margin="20"
+                Margin="0,20"
                 Width="200"
                 Height="30"
                 ItemsSource="{Binding Categories}"
-                SelectedItem="{Binding SelectedCategory}"/>            
+                SelectedItem="{Binding SelectedCategory}"/>
+            <Button 
+                Margin="20"
+                Width="200"
+                Height="30"
+                Content="Design piktogram"
+                Command="{Binding CreateCustomPictogramCmd}"/>
         </StackPanel>
 
         <ScrollViewer
