@@ -11,7 +11,7 @@ using Robust.ViewModel.RelayCommands;
 
 namespace Robust.ViewModel.CheckoutViewModel
 {
-    internal class CheckoutViewModel : ViewModelBase
+    public class CheckoutViewModel : ViewModelBase
     {
         //This list is used to store the products currently in the shopping cart.
         public ObservableCollection<Product> ShoppingCartList { get; set; }

@@ -11,7 +11,7 @@ using Robust.ViewModel;
 
 namespace Robust.Service.Interface;
 
-internal interface IWindowService
+public interface IWindowService
 {
     //The parameter should probably be removed when we implement the database.
     void ShowDialog(ObservableCollection<Product> list);

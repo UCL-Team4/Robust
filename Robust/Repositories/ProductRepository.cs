@@ -2,7 +2,7 @@
 
 namespace Robust.Repositories.Product;
 
-class ProductRepository : IRepository
+public class ProductRepository : IRepository
 {
     public void Add()
     {

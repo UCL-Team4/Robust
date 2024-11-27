@@ -1,6 +1,6 @@
 ﻿namespace Robust.Repositories.Interface;
 
-interface IRepository
+public interface IRepository
 {
     public void GetAll();
     public void GetByID();

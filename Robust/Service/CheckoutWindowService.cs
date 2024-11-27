@@ -11,7 +11,7 @@ using Robust.Service.Interface;
 
 namespace Robust.Service.CheckOutWindow;
 
-internal class CheckoutWindowService : IWindowService
+public class CheckoutWindowService : IWindowService
 {
     public void ShowDialog(ObservableCollection<Product> list)
     {
