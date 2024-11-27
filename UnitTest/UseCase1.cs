@@ -1,6 +1,8 @@
 using Robust.Enums.Category;
 using Robust.Model.Product;
 
+using Robust.ViewModel.ProductViewModel;
+
 namespace UnitTest;
 
 [TestClass]
@@ -12,9 +14,9 @@ public class UseCase1
     public void GET_ALL_SUNDHEDS_PRODUCTS()
     {
         // arrange
-        List<Product> _products = [];
+        var viewModel = new ProductViewModel(true);
 
-        _products.Add(new()
+        viewModel.Products.Add(new()
         {
             ProductID = 1,
             Name = "Mask",
@@ -25,7 +27,7 @@ public class UseCase1
             Category = Category.Sundhed
         });
 
-        _products.Add(new()
+        viewModel.Products.Add(new()
         {
             ProductID = 2,
             Name = "Bicycle",
@@ -36,7 +38,7 @@ public class UseCase1
             Category = Category.Transport
         });
 
-        _products.Add(new()
+        viewModel.Products.Add(new()
         {
             ProductID = 3,
             Name = "Bicycle",
@@ -49,20 +51,20 @@ public class UseCase1
 
         // act
         // Lav en metode i vores ViewModel vi kan teste her der skal se om vi har filteret alle produkter med sundhed.
-        List<Product> sundhedProducts = [];
+        viewModel.SelectedCategory = Category.Sundhed;
 
 
         // asert
         // Assert at alle filtrerede produkter har kategorien Sundhed
-        Assert.AreEqual(1, sundhedProducts.Count, "Antallet af Sundhed-produkter matcher ikke det forventede antal.");
+        Assert.AreEqual(1, viewModel.SelectedProducts.Count, "Antallet af Sundhed-produkter matcher ikke det forventede antal.");
     }
 
     [TestMethod]
     public void GET_ALL_HYGIJENE_PRODUCTS()
     {
-        List<Product> _products = [];
+        var viewModel = new ProductViewModel(true);
 
-        _products.Add(new()
+        viewModel.Products.Add(new()
         {
             ProductID = 1,
             Name = "Soap",
@@ -73,7 +75,7 @@ public class UseCase1
             Category = Category.Hygiejne
         });
 
-        _products.Add(new()
+        viewModel.Products.Add(new()
         {
             ProductID = 2,
             Name = "Bicycle",
@@ -84,7 +86,7 @@ public class UseCase1
             Category = Category.Transport
         });
 
-        _products.Add(new()
+        viewModel.Products.Add(new()
         {
             ProductID = 3,
             Name = "Bicycle",
@@ -97,9 +99,9 @@ public class UseCase1
 
 
         // Lav en metode i vores ViewModel vi kan teste her der skal se om vi har filteret alle produkter med Hygiejne.
-        List<Product> hygiejneProducts = [];
+        viewModel.SelectedCategory = Category.Hygiejne;
 
         // Assert at alle filtrerede produkter har kategorien Hygiejne
-        Assert.AreEqual(1, hygiejneProducts.Count, "Antallet af Hygiejne-produkter matcher ikke det forventede antal.");
+        Assert.AreEqual(1, viewModel.SelectedProducts.Count, "Antallet af Hygiejne-produkter matcher ikke det forventede antal.");
     }
 }

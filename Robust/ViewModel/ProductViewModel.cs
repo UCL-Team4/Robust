@@ -16,7 +16,7 @@ using System.Reflection.Metadata;
 
 namespace Robust.ViewModel.ProductViewModel;
 
-internal class ProductViewModel : ViewModelBase
+public class ProductViewModel : ViewModelBase
 {
     private ProductRepository _repository = new();
     private ObservableCollection<Product> _products = [];
@@ -143,21 +143,28 @@ internal class ProductViewModel : ViewModelBase
         throw new NotImplementedException();
     }
 
-    public ProductViewModel()
+    public ProductViewModel(bool isUnitTest = false)
     {
         Categories = new ObservableCollection<Category>(Category.GetValues(typeof(Category)).Cast<Category>());
         SelectedProducts = new ObservableCollection<Product>();
         _windowService = new WindowService();
         ShoppingCartList = new ObservableCollection<Product>();
 
-        //Added only for debugging purposes
-        Products = new ObservableCollection<Product>
+        if (!isUnitTest)
         {
-            new Product {Name = "Bus", Category = Category.Transport, Description = "Et piktogram, som forestiller en bus", ImagePath = "C:/temp/Robust/Bus.jpg", Price = 38.00M},
-            new Product {Name = "Håndvask", Category = Category.Hygiejne, Description = "Et piktogram, som forestiller håndvask", ImagePath = "C:/temp/Robust/Handwashing.jpeg", Price = 38.00M},
-            new Product {Name = "Indkøbsvogn", Category = Category.IndkobOgShopping, Description = "Et piktogram, som forestiller en indkøbsvogn", ImagePath = "C:/temp/Robust/ShoppingCart.jpg", Price = 38.00M},
-            new Product {Name = "Taxa", Category = Category.Transport, Description = "Et piktogram, som forestiller en taxa", ImagePath = "C:/temp/Robust/Taxi.jpg", Price = 38.00M}
-        };
+            Products = new ObservableCollection<Product>
+            {
+                new Product {Name = "Bus", Category = Category.Transport, Description = "Et piktogram, som forestiller en bus", ImagePath = "C:/temp/Robust/Bus.jpg", Price = 38.00M},
+                new Product {Name = "Håndvask", Category = Category.Hygiejne, Description = "Et piktogram, som forestiller håndvask", ImagePath = "C:/temp/Robust/Handwashing.jpeg", Price = 38.00M},
+                new Product {Name = "Indkøbsvogn", Category = Category.IndkobOgShopping, Description = "Et piktogram, som forestiller en indkøbsvogn", ImagePath = "C:/temp/Robust/ShoppingCart.jpg", Price = 38.00M},
+                new Product {Name = "Taxa", Category = Category.Transport, Description = "Et piktogram, som forestiller en taxa", ImagePath = "C:/temp/Robust/Taxi.jpg", Price = 38.00M}
+            };
+        }
+        else
+        {
+            Products = [];
+        }
+        //Added only for debugging purposes
 
         FillSelectedProducts();
     }
