@@ -150,6 +150,7 @@ public class ProductViewModel : ViewModelBase
         _windowService = new WindowService();
         ShoppingCartList = new ObservableCollection<Product>();
 
+        // If statement to determain if this is a unit test making debug data available for general use
         if (!isUnitTest)
         {
             Products = new ObservableCollection<Product>
@@ -164,7 +165,6 @@ public class ProductViewModel : ViewModelBase
         {
             Products = [];
         }
-        //Added only for debugging purposes
 
         FillSelectedProducts();
     }
