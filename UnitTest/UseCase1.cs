@@ -13,9 +13,10 @@ public class UseCase1
     [TestMethod]
     public void GET_ALL_SUNDHEDS_PRODUCTS()
     {
-        // arrange
         var viewModel = new ProductViewModel(true);
 
+        // arrange
+        // add products to our viewModel
         viewModel.Products.Add(new()
         {
             ProductID = 1,
@@ -50,12 +51,12 @@ public class UseCase1
         });
 
         // act
-        // Lav en metode i vores ViewModel vi kan teste her der skal se om vi har filteret alle produkter med sundhed.
+        // Here we set the selected Category to "Sundhed" which then filteres the "SelectedProducts"
         viewModel.SelectedCategory = Category.Sundhed;
 
 
-        // asert
-        // Assert at alle filtrerede produkter har kategorien Sundhed
+        // Assert
+        // Here we assert to make sure our unit test passed
         Assert.AreEqual(1, viewModel.SelectedProducts.Count, "Antallet af Sundhed-produkter matcher ikke det forventede antal.");
     }
 
@@ -64,6 +65,8 @@ public class UseCase1
     {
         var viewModel = new ProductViewModel(true);
 
+        // arrange
+        // add products to our viewModel
         viewModel.Products.Add(new()
         {
             ProductID = 1,
@@ -98,10 +101,12 @@ public class UseCase1
         });
 
 
-        // Lav en metode i vores ViewModel vi kan teste her der skal se om vi har filteret alle produkter med Hygiejne.
+        // act
+        // Here we set the selected Category to "Hygiejne" which then filteres the "SelectedProducts"
         viewModel.SelectedCategory = Category.Hygiejne;
 
-        // Assert at alle filtrerede produkter har kategorien Hygiejne
+        // Assert
+        // Here we assert to make sure our unit test passed
         Assert.AreEqual(1, viewModel.SelectedProducts.Count, "Antallet af Hygiejne-produkter matcher ikke det forventede antal.");
     }
 }
