@@ -10,15 +10,14 @@ using Robust.View;
 using Robust.View.ShoppingCart;
 using Robust.ViewModel.ShoppingCart;
 
-namespace Robust.Service.PictogramSheet
+namespace Robust.Service.PictogramSheet;
+
+internal class PictogramSheetService : IWindowService
 {
-    internal class PictogramSheetService : IWindowService
+    public void ShowDialog(ObservableCollection<Product> list)
     {
-        public void ShowDialog(ObservableCollection<Product> list)
-        {
-            var dialog = new PictogramSheetWindow();
-            //dialog.DataContext = new ShoppingCartViewModel(list);
-            dialog.ShowDialog();
-        }
+        var dialog = new PictogramSheetWindow();
+        //dialog.DataContext = new ShoppingCartViewModel(list);
+        dialog.ShowDialog();
     }
 }
