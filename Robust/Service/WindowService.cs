@@ -13,7 +13,7 @@ using Robust.Service.Interface;
 
 namespace Robust.Service.ShoppingCart;
 
-internal class WindowService : IWindowService
+public class WindowService : IWindowService
 {
     public void ShowDialog(ObservableCollection<Product> list)
     {
