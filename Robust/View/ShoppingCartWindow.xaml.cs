@@ -14,16 +14,15 @@ using System.Windows.Shapes;
 using Robust.ViewModel;
 using Robust.ViewModel.ProductViewModel;
 
-namespace Robust.View.ShoppingCart
+namespace Robust.View.ShoppingCart;
+
+/// <summary>
+/// Interaction logic for ShoppingCartWindow.xaml
+/// </summary>
+public partial class ShoppingCartWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for ShoppingCartWindow.xaml
-    /// </summary>
-    public partial class ShoppingCartWindow : Window
+    public ShoppingCartWindow()
     {
-        public ShoppingCartWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }
