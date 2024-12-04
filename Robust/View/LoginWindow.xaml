@@ -1,0 +1,117 @@
+﻿<Window x:Class="Robust.View.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Robust.View"
+        mc:Ignorable="d"
+        Title="LoginWindow" Height="650" Width="900"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="50" />
+            <RowDefinition
+                Height="75" />
+            <RowDefinition
+                Height="75" />
+            <RowDefinition
+                Height="*" />
+            <RowDefinition
+                Height="75" />
+        </Grid.RowDefinitions>
+
+        <StackPanel
+            Grid.Row="0"
+            Orientation="Horizontal"
+            HorizontalAlignment="Right">
+            <Button
+                Margin="0,5,20,0"
+                Command="{Binding ShowShoppingCartCmd}">
+                <Image
+                    Source="C:/temp/Robust/ShoppingCartWebshop.jpg"
+                    Width="40"
+                    Height="40" />
+            </Button>
+            <Button
+                Margin="0,5,20,0"
+                Command="{Binding ShowLoginWindowCmd}">
+                <Image
+                    Source="C:/temp/Robust/Login.jpg"
+                    Width="40"
+                    Height="40" />
+            </Button>
+        </StackPanel>
+
+        <TextBlock
+            Grid.Row="1"
+            Text="Robust Hjælpemidler ApS"
+            FontSize="45"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" />
+
+        <!--<StackPanel
+            Grid.Row="2"
+            Orientation="Horizontal">
+            <Label
+                Content="Vælg kategori:"
+                VerticalContentAlignment="Center"
+                Margin="20,0,0,0" />
+            <ComboBox
+                Margin="0,20"
+                Width="200"
+                Height="30"
+                ItemsSource="{Binding Categories}"
+                SelectedItem="{Binding SelectedCategory}" />
+            <Button
+                Margin="20"
+                Width="200"
+                Height="30"
+                Content="Design piktogram"
+                Command="{Binding CreateCustomPictogramCmd}" />
+        </StackPanel>-->
+
+        <StackPanel
+            Grid.Row="3"
+            Orientation="Vertical"
+            HorizontalAlignment="Center">
+            <TextBlock 
+                Text="Log ind på din konto"
+                FontWeight="Bold"
+                FontSize="30"/>
+            <TextBox
+                x:Name="EmailBox"
+                Margin="20"
+                Text="{Binding Email}"
+                FontSize="20"/>
+            <PasswordBox
+                x:Name="PasswordBox"
+                Margin="20,0,20,20"
+                FontSize="20" 
+                PasswordChanged="PasswordBox_PasswordChanged"/>
+            <Button 
+                Content="Login"
+                Width="100"
+                Height="30"
+                Background="LightGreen"/>
+            <Button
+                Content="Opret konto"
+                Margin="0,20"
+                Width="100"
+                Height="30"
+                Background="LightBlue" />
+        </StackPanel>
+
+        <!--<StackPanel
+            Grid.Row="4"
+            Orientation="Horizontal"
+            HorizontalAlignment="Right">
+            <Button
+                Width="100"
+                Height="50"
+                Margin="0,0,20,5"
+                Content="Tiløj til kurv"
+                Command="{Binding AddProductToCartCmd}" />
+        </StackPanel>-->
+    </Grid>
+</Window>

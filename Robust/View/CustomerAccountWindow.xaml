@@ -1,0 +1,117 @@
+﻿<Window x:Class="Robust.View.CustomerAccountWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Robust.View"
+        mc:Ignorable="d"
+        Title="CustomerAccountWindow" Height="650" Width="900"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="50" />
+            <RowDefinition
+                Height="75" />
+            <RowDefinition
+                Height="75" />
+            <RowDefinition
+                Height="*" />
+            <RowDefinition
+                Height="75" />
+        </Grid.RowDefinitions>
+
+        <StackPanel
+            Grid.Row="0"
+            Orientation="Horizontal"
+            HorizontalAlignment="Right">
+            <Button
+                Margin="0,5,20,0"
+                Command="{Binding ShowShoppingCartCmd}">
+                <Image
+                    Source="C:/temp/Robust/ShoppingCartWebshop.jpg"
+                    Width="40"
+                    Height="40" />
+            </Button>
+            <Button
+                Margin="0,5,20,0"
+                Command="{Binding ShowLoginWindowCmd}">
+                <Image
+                    Source="C:/temp/Robust/Login.jpg"
+                    Width="40"
+                    Height="40" />
+            </Button>
+        </StackPanel>
+
+        <TextBlock
+            Grid.Row="1"
+            Text="Robust Hjælpemidler ApS"
+            FontSize="45"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" />
+
+        <TextBlock 
+            Grid.Row="2"
+            Text="Velkommen til din profil"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="30"
+            FontWeight="Bold"/>
+        
+        <Grid
+            Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Border
+                BorderBrush="LightGray"
+                BorderThickness="2"
+                CornerRadius="2"
+                Margin="5"
+                Grid.Column="0">
+                <StackPanel>
+                    <TextBlock
+                        Text="Mine profiloplysninger"
+                        TextAlignment="Center"
+                        FontWeight="Bold" />
+                </StackPanel>
+            </Border>
+
+            <Border
+                BorderBrush="LightGray"
+                BorderThickness="2"
+                CornerRadius="2"
+                Margin="5"
+                Grid.Column="1">
+                <StackPanel>
+                    <TextBlock
+                        Text="Mine adresser"
+                        TextAlignment="Center"
+                        FontWeight="Bold" />
+                </StackPanel>
+            </Border>
+
+            <Border
+                BorderBrush="LightGray"
+                BorderThickness="2"
+                CornerRadius="2"
+                Margin="5"
+                Grid.Column="2">
+                <StackPanel>
+                    <TextBlock
+                        Text="Min ordrehistorik"
+                        TextAlignment="Center"
+                        FontWeight="Bold" />
+                    <DataGrid
+                        ItemsSource="{Binding CustomerOrders}"
+                        Height="320"
+                        Margin="5">                        
+                    </DataGrid>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

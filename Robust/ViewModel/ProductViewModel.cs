@@ -14,6 +14,7 @@ using Robust.Service.ShoppingCart;
 using Robust.View;
 using System.Reflection.Metadata;
 using Robust.Service.PictogramSheet;
+using Robust.Service.Login;
 
 namespace Robust.ViewModel.ProductViewModel;
 
@@ -23,6 +24,7 @@ public class ProductViewModel : ViewModelBase
     private ObservableCollection<Product> _products = [];
     private IWindowService _windowService;
     private IWindowService _windowServicePictogramSheet;
+    private IWindowService _windowServiceLoginWindow;
 
     //This Collection is bound to the combobox which displays all the different categories.
     public ObservableCollection<Category> Categories { get; set; }
@@ -151,6 +153,7 @@ public class ProductViewModel : ViewModelBase
         SelectedProducts = new ObservableCollection<Product>();
         _windowService = new WindowService();
         _windowServicePictogramSheet = new PictogramSheetService();
+        _windowServiceLoginWindow = new LoginWindowService();
         ShoppingCartList = new ObservableCollection<Product>();
 
         // If statement to determain if this is a unit test making debug data available for general use
@@ -207,5 +210,12 @@ public class ProductViewModel : ViewModelBase
     private void CreateCustomPictogram()
     {
         _windowServicePictogramSheet.ShowDialog(ShoppingCartList);
+    }
+
+    public RelayCommand ShowLoginWindowCmd => new RelayCommand(ShowLoginWindow);
+
+    private void ShowLoginWindow()
+    {
+        _windowServiceLoginWindow.ShowDialog(ShoppingCartList);
     }
 }
