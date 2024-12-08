@@ -36,6 +36,14 @@
                     Width="40"
                     Height="40" />
             </Button>
+            <Button
+                Margin="0,5,20,0"
+                Command="{Binding ShowLoginWindowCmd}">
+                <Image
+                    Source="C:/temp/Robust/Login.jpg"
+                    Width="40"
+                    Height="40" />
+            </Button>
         </StackPanel>
         
         <TextBlock 
