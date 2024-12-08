@@ -4,7 +4,7 @@
 
 using Robust.Model.Product;
 using Robust.MVVM.ViewModelBase;
-using Robust.Repositories.Product;
+using Robust.Repositories.ProductRepository;
 using System.Collections.ObjectModel;
 using Robust.Enums.Category;
 using System.Windows;
@@ -20,7 +20,7 @@ namespace Robust.ViewModel.ProductViewModel;
 
 public class ProductViewModel : ViewModelBase
 {
-    private ProductRepository _repository = new();
+    private ProductRepository _repository;
     private ObservableCollection<Product> _products = [];
     private IWindowService _windowService;
     private IWindowService _windowServicePictogramSheet;
@@ -155,17 +155,12 @@ public class ProductViewModel : ViewModelBase
         _windowServicePictogramSheet = new PictogramSheetService();
         _windowServiceLoginWindow = new LoginWindowService();
         ShoppingCartList = new ObservableCollection<Product>();
+        _repository = new();
 
         // If statement to determain if this is a unit test making debug data available for general use
         if (!isUnitTest)
         {
-            Products = new ObservableCollection<Product>
-            {
-                new Product {Name = "Bus", Category = Category.Transport, Description = "Et piktogram, som forestiller en bus", ImagePath = "C:/temp/Robust/Bus.jpg", Price = 38.00M},
-                new Product {Name = "Håndvask", Category = Category.Hygiejne, Description = "Et piktogram, som forestiller håndvask", ImagePath = "C:/temp/Robust/Handwashing.jpeg", Price = 38.00M},
-                new Product {Name = "Indkøbsvogn", Category = Category.IndkobOgShopping, Description = "Et piktogram, som forestiller en indkøbsvogn", ImagePath = "C:/temp/Robust/ShoppingCart.jpg", Price = 38.00M},
-                new Product {Name = "Taxa", Category = Category.Transport, Description = "Et piktogram, som forestiller en taxa", ImagePath = "C:/temp/Robust/Taxi.jpg", Price = 38.00M}
-            };
+            Products = _repository.GetAll();
         }
         else
         {
