@@ -14,5 +14,5 @@ namespace Robust.Service.Interface;
 public interface IWindowService
 {
     //The parameter should probably be removed when we implement the database.
-    void ShowDialog(ObservableCollection<Product> list);
+    void ShowDialog();
 }

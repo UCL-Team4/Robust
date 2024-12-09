@@ -12,10 +12,9 @@ namespace Robust.Service.Login;
 
 public class LoginWindowService : IWindowService
 {
-    public void ShowDialog(ObservableCollection<Product> list)
+    public void ShowDialog()
     {
         var dialog = new LoginWindow();
-        //dialog.DataContext = new ShoppingCartViewModel(list);
         dialog.ShowDialog();
     }
 }

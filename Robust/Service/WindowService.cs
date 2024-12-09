@@ -15,10 +15,10 @@ namespace Robust.Service.ShoppingCart;
 
 public class WindowService : IWindowService
 {
-    public void ShowDialog(ObservableCollection<Product> list)
+    public void ShowDialog()
     {
         var dialog = new ShoppingCartWindow();
-        dialog.DataContext = new ShoppingCartViewModel(list);
+        dialog.DataContext = new ShoppingCartViewModel();
         dialog.ShowDialog();
     }
 }

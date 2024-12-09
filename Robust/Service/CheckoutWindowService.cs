@@ -13,10 +13,10 @@ namespace Robust.Service.CheckOutWindow;
 
 public class CheckoutWindowService : IWindowService
 {
-    public void ShowDialog(ObservableCollection<Product> list)
+    public void ShowDialog()
     {
         var dialog = new CheckoutWindow();
-        dialog.DataContext = new CheckoutViewModel(list);
+        dialog.DataContext = new CheckoutViewModel();
         dialog.ShowDialog();
     }
 }

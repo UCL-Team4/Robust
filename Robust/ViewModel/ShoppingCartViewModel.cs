@@ -88,7 +88,7 @@ namespace Robust.ViewModel.ShoppingCart
 
         private bool CanDeleteSelectedProduct() => SelectedProduct != null;
 
-        public ShoppingCartViewModel(ObservableCollection<Product> list) 
+        public ShoppingCartViewModel() 
         {
             _cartRepository = new();
             ShoppingCartList = _cartRepository.GetAll();

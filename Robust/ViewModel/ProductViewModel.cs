@@ -32,8 +32,6 @@ public class ProductViewModel : ViewModelBase
     public ObservableCollection<Product> Products { get; set; }
     //This Collection contains the products that are to be displayed in the MainWindow.
     public ObservableCollection<Product> SelectedProducts { get; set; }
-    //This Collection contains products that are added to the Shopping Cart.
-    public ObservableCollection<Product> ShoppingCartList { get; set; }
 
     //This property is used to select images based on their category.
     private Category _selectedCategory;
@@ -154,7 +152,6 @@ public class ProductViewModel : ViewModelBase
         _windowService = new WindowService();
         _windowServicePictogramSheet = new PictogramSheetService();
         _windowServiceLoginWindow = new LoginWindowService();
-        ShoppingCartList = new ObservableCollection<Product>();
         _repository = new();
         _cartRepository = new();
 
@@ -175,7 +172,7 @@ public class ProductViewModel : ViewModelBase
 
     private void ShowShoppingCart()
     {
-        _windowService.ShowDialog(ShoppingCartList);        
+        _windowService.ShowDialog();        
     }
 
     public RelayCommand AddProductToCartCmd => new RelayCommand(AddProductToCart, CanAddProductToCart);
@@ -196,13 +193,13 @@ public class ProductViewModel : ViewModelBase
 
     private void CreateCustomPictogram()
     {
-        _windowServicePictogramSheet.ShowDialog(ShoppingCartList);
+        _windowServicePictogramSheet.ShowDialog();
     }
 
     public RelayCommand ShowLoginWindowCmd => new RelayCommand(ShowLoginWindow);
 
     private void ShowLoginWindow()
     {
-        _windowServiceLoginWindow.ShowDialog(ShoppingCartList);
+        _windowServiceLoginWindow.ShowDialog();
     }
 }
