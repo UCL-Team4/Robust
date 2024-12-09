@@ -11,16 +11,16 @@ using System.Windows;
 using Robust.ViewModel.RelayCommands;
 using Robust.Service.Interface;
 using Robust.Service.ShoppingCart;
-using Robust.View;
-using System.Reflection.Metadata;
 using Robust.Service.PictogramSheet;
 using Robust.Service.Login;
+using Robust.Repositories;
 
 namespace Robust.ViewModel.ProductViewModel;
 
 public class ProductViewModel : ViewModelBase
 {
     private ProductRepository _repository;
+    private CartRepository _cartRepository;
     private ObservableCollection<Product> _products = [];
     private IWindowService _windowService;
     private IWindowService _windowServicePictogramSheet;
@@ -156,6 +156,7 @@ public class ProductViewModel : ViewModelBase
         _windowServiceLoginWindow = new LoginWindowService();
         ShoppingCartList = new ObservableCollection<Product>();
         _repository = new();
+        _cartRepository = new();
 
         // If statement to determain if this is a unit test making debug data available for general use
         if (!isUnitTest)
@@ -183,16 +184,7 @@ public class ProductViewModel : ViewModelBase
     {
         MessageBox.Show($"Produktet {SelectedProduct.Name} blev tilføjet til kurven");
 
-        //We should maybe include a property connected to Product called Quantity. Here we use StockQuantity as a measure of how many items of each Product there are.
-        if (!ShoppingCartList.Contains(SelectedProduct))
-        {
-            ShoppingCartList.Add(SelectedProduct);
-            SelectedProduct.StockQuantity++;
-        }
-        else
-        {
-            SelectedProduct.StockQuantity++;
-        }
+        _cartRepository.Add(SelectedProduct);
     }
 
     private bool CanAddProductToCart()

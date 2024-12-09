@@ -9,14 +9,19 @@ using Robust.Service.Interface;
 using Robust.Service.CheckOutWindow;
 using Robust.ViewModel.RelayCommands;
 using Robust.MVVM.ViewModelBase;
+using Robust.Model.CartItem;
+using Robust.Repositories;
+using Robust.Repositories.Interface;
 
 namespace Robust.ViewModel.ShoppingCart
 {
     public class ShoppingCartViewModel : ViewModelBase
     {
+
+        private CartRepository _cartRepository;
         private IWindowService _windowService;
         //This list is used to store the products currently in the shopping cart.
-        public ObservableCollection<Product> ShoppingCartList { get; set; }
+        public ObservableCollection<CartItem> ShoppingCartList { get; set; }
         
         //The UI doesn't update the total price properly - this needs to be fixed.
         private decimal _totalPrice;
@@ -31,9 +36,9 @@ namespace Robust.ViewModel.ShoppingCart
             }
         }
 
-        private Product _selectedProduct;
+        private CartItem _selectedProduct;
 
-        public Product SelectedProduct
+        public CartItem SelectedProduct
         {
             get { return _selectedProduct; }
             set
@@ -46,11 +51,10 @@ namespace Robust.ViewModel.ShoppingCart
         //We should maybe include a property connected to Product called Quantity. Here we use StockQuantity as a measure of how many items of each Product there are.
         public void CalculateTotalPrice()
         {
-            TotalPrice = 0;
-
-            foreach (Product item in ShoppingCartList)
+            for (int i = 0; i < ShoppingCartList.Count; i++)
             {
-                TotalPrice = TotalPrice + item.Price * item.StockQuantity;
+                CartItem item = ShoppingCartList[i];
+                TotalPrice += item.Price * item.Quantity;
             }
         }
 
@@ -58,7 +62,7 @@ namespace Robust.ViewModel.ShoppingCart
 
         private void ShowCheckout()
         {
-            _windowService.ShowDialog(ShoppingCartList);
+            //_windowService.ShowDialog(ShoppingCartList);
         }
 
         private bool CanShowCheckout()
@@ -70,18 +74,27 @@ namespace Robust.ViewModel.ShoppingCart
 
         private void DeleteSelectedProduct()
         {
-            ShoppingCartList.Remove(SelectedProduct);
 
-            TotalPrice = 0;
+            bool didDelete = _cartRepository.Delete(SelectedProduct.CartItemID);
+
+
+            if (didDelete)
+            {
+                TotalPrice -= SelectedProduct.Price * SelectedProduct.Quantity;
+
+                ShoppingCartList.Remove(SelectedProduct);
+            }
         }
 
         private bool CanDeleteSelectedProduct() => SelectedProduct != null;
 
         public ShoppingCartViewModel(ObservableCollection<Product> list) 
         {
-            ShoppingCartList = new ObservableCollection<Product>(list);
+            _cartRepository = new();
+            ShoppingCartList = _cartRepository.GetAll();
             _windowService = new CheckoutWindowService();
 
+            TotalPrice = 0;
             CalculateTotalPrice();
         }
     }

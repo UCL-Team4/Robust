@@ -5,6 +5,7 @@ using Robust.Model.Product;
 using Robust.Enums.Category;
 using System.Collections.ObjectModel;
 using Robust.Repositories.Database;
+using Robust.Model.CartItem;
 
 namespace Robust.Repositories.ProductRepository;
 
@@ -19,6 +20,7 @@ public class ProductRepository : IRepository
     {
         throw new NotImplementedException();
     }
+
 
     public ObservableCollection<Product> GetAll()
     {
