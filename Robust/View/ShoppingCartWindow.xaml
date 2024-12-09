@@ -65,7 +65,7 @@
                     Width="4*" />
                 <DataGridTextColumn
                     Header="Antal"
-                    Binding="{Binding StockQuantity}"
+                    Binding="{Binding Quantity}"
                     Width="2*" />
                 <DataGridTextColumn
                     Header="Pris"

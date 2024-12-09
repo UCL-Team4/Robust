@@ -9,14 +9,19 @@ using Robust.Service.Interface;
 using Robust.Service.CheckOutWindow;
 using Robust.ViewModel.RelayCommands;
 using Robust.MVVM.ViewModelBase;
+using Robust.Model.CartItem;
+using Robust.Repositories;
+using Robust.Repositories.Interface;
 
 namespace Robust.ViewModel.ShoppingCart
 {
     public class ShoppingCartViewModel : ViewModelBase
     {
+
+        private CartRepository _cartRepository;
         private IWindowService _windowService;
         //This list is used to store the products currently in the shopping cart.
-        public ObservableCollection<Product> ShoppingCartList { get; set; }
+        public ObservableCollection<CartItem>? ShoppingCartList { get; set; }
         
         //The UI doesn't update the total price properly - this needs to be fixed.
         private decimal _totalPrice;
@@ -31,9 +36,9 @@ namespace Robust.ViewModel.ShoppingCart
             }
         }
 
-        private Product _selectedProduct;
+        private CartItem _selectedProduct;
 
-        public Product SelectedProduct
+        public CartItem SelectedProduct
         {
             get { return _selectedProduct; }
             set
@@ -48,9 +53,9 @@ namespace Robust.ViewModel.ShoppingCart
         {
             TotalPrice = 0;
 
-            foreach (Product item in ShoppingCartList)
+            foreach (CartItem item in ShoppingCartList)
             {
-                TotalPrice = TotalPrice + item.Price * item.StockQuantity;
+                TotalPrice += item.Price * item.Quantity;
             }
         }
 
@@ -58,7 +63,7 @@ namespace Robust.ViewModel.ShoppingCart
 
         private void ShowCheckout()
         {
-            _windowService.ShowDialog(ShoppingCartList);
+            //_windowService.ShowDialog(ShoppingCartList);
         }
 
         private bool CanShowCheckout()
@@ -70,16 +75,17 @@ namespace Robust.ViewModel.ShoppingCart
 
         private void DeleteSelectedProduct()
         {
-            ShoppingCartList.Remove(SelectedProduct);
+            //ShoppingCartList.Remove(SelectedProduct);
 
             TotalPrice = 0;
         }
 
         private bool CanDeleteSelectedProduct() => SelectedProduct != null;
 
-        public ShoppingCartViewModel(ObservableCollection<Product> list) 
+        public ShoppingCartViewModel() 
         {
-            ShoppingCartList = new ObservableCollection<Product>(list);
+            _cartRepository = new();
+            ShoppingCartList = _cartRepository.GetAll();
             _windowService = new CheckoutWindowService();
 
             CalculateTotalPrice();
