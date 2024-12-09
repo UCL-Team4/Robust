@@ -4,13 +4,12 @@ using Robust.Repositories.Interface;
 using Robust.Model.Product;
 using Robust.Enums.Category;
 using System.Collections.ObjectModel;
+using Robust.Repositories.Database;
 
 namespace Robust.Repositories.ProductRepository;
 
 public class ProductRepository : IRepository
 {
-    private readonly string? ConnectionString;
-
     public void Add()
     {
         throw new NotImplementedException();
@@ -26,7 +25,7 @@ public class ProductRepository : IRepository
         string query = "SELECT * FROM Product";
         ObservableCollection<Product> products = [];
 
-        using (SqlConnection connection = new SqlConnection(ConnectionString))
+        using (SqlConnection connection = new SqlConnection(DatabaseConfig.ConnectionString))
         {
             SqlCommand command = new SqlCommand(query, connection);
             
@@ -64,12 +63,5 @@ public class ProductRepository : IRepository
     public void Update()
     {
         throw new NotImplementedException();
-    }
-
-    public ProductRepository()
-    {
-        IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-
-        ConnectionString = config.GetConnectionString("DefaultConnection");
     }
 }
