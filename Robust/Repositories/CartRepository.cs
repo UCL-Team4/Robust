@@ -37,10 +37,24 @@ namespace Robust.Repositories
             command.ExecuteNonQuery();
         }
 
-        public void Delete(int customerId = 1)
+        public bool Delete(int cartItemId = 1)
         {
-            throw new NotImplementedException();
+            using SqlConnection connection = new SqlConnection(DatabaseConfig.ConnectionString);
+
+            string query = "DELETE FROM CartItems WHERE CartItemID = @CartItemID";
+
+            using SqlCommand command = new SqlCommand(query, connection);
+
+            command.CommandType = System.Data.CommandType.Text;
+            command.Parameters.AddWithValue("@CartItemID", cartItemId);
+
+            connection.Open();
+
+            // Check if more than 0 rows were affected
+            int rowsAffected = command.ExecuteNonQuery();
+            return rowsAffected > 0;
         }
+
 
         public ObservableCollection<CartItem> GetAll(int customerId = 1)
         {
@@ -70,7 +84,8 @@ namespace Robust.Repositories
                         Name = (string)reader["Name"],
                         ImagePath = (string)reader["ImagePath"],
                         Price = (decimal)reader["Price"],
-                        Quantity = (int)reader["Quantity"]
+                        Quantity = (int)reader["Quantity"],
+                        CartItemID = (int)reader["CartItemID"],
                     });
                 }
             }

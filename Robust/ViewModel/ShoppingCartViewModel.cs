@@ -21,7 +21,7 @@ namespace Robust.ViewModel.ShoppingCart
         private CartRepository _cartRepository;
         private IWindowService _windowService;
         //This list is used to store the products currently in the shopping cart.
-        public ObservableCollection<CartItem>? ShoppingCartList { get; set; }
+        public ObservableCollection<CartItem> ShoppingCartList { get; set; }
         
         //The UI doesn't update the total price properly - this needs to be fixed.
         private decimal _totalPrice;
@@ -51,10 +51,9 @@ namespace Robust.ViewModel.ShoppingCart
         //We should maybe include a property connected to Product called Quantity. Here we use StockQuantity as a measure of how many items of each Product there are.
         public void CalculateTotalPrice()
         {
-            TotalPrice = 0;
-
-            foreach (CartItem item in ShoppingCartList)
+            for (int i = 0; i < ShoppingCartList.Count; i++)
             {
+                CartItem item = ShoppingCartList[i];
                 TotalPrice += item.Price * item.Quantity;
             }
         }
@@ -75,19 +74,27 @@ namespace Robust.ViewModel.ShoppingCart
 
         private void DeleteSelectedProduct()
         {
-            //ShoppingCartList.Remove(SelectedProduct);
 
-            TotalPrice = 0;
+            bool didDelete = _cartRepository.Delete(SelectedProduct.CartItemID);
+
+
+            if (didDelete)
+            {
+                TotalPrice -= SelectedProduct.Price * SelectedProduct.Quantity;
+
+                ShoppingCartList.Remove(SelectedProduct);
+            }
         }
 
         private bool CanDeleteSelectedProduct() => SelectedProduct != null;
 
-        public ShoppingCartViewModel() 
+        public ShoppingCartViewModel(ObservableCollection<Product> list) 
         {
             _cartRepository = new();
             ShoppingCartList = _cartRepository.GetAll();
             _windowService = new CheckoutWindowService();
 
+            TotalPrice = 0;
             CalculateTotalPrice();
         }
     }

@@ -19,5 +19,5 @@ public interface ICartRepository
     public void Add(Product product, int customerId = 1);
     public ObservableCollection<CartItem> GetAll(int customerId = 1);
     public void Update(Product product, int customerId = 1);
-    public void Delete(int customerId = 1);
+    public bool Delete(int cartItemId = 1);
 }
