@@ -12,24 +12,21 @@ using Robust.ViewModel.RelayCommands;
 namespace Robust.ViewModel.CheckoutViewModel
 {
     public class CheckoutViewModel : ViewModelBase
-    {
-        //This list is used to store the products currently in the shopping cart.
-        public ObservableCollection<Product> ShoppingCartList { get; set; }
-        
-        public CheckoutViewModel(ObservableCollection<Product> list)
+    {      
+        public CheckoutViewModel()
         {
-            ShoppingCartList = new ObservableCollection<Product>(list);
+            
         }
 
         public RelayCommand CheckoutCmd => new RelayCommand(Checkout);
 
         private void Checkout()
         {
-            if (ShoppingCartList != null)
-            {
-                //The message should include an order number.
-                MessageBox.Show("Tak for din bestilling!");
-            }
+            //if (ShoppingCartList != null)
+            //{
+            //    //The message should include an order number.
+            //    MessageBox.Show("Tak for din bestilling!");
+            //}
         }        
     }
 }

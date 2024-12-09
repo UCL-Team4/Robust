@@ -148,7 +148,7 @@ public class PictogramSheetViewModel : ViewModelBase
 
     private void ShowShoppingCart()
     {
-        _windowService.ShowDialog(Products);
+        _windowService.ShowDialog();
     }
 
 
