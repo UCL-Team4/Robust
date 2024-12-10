@@ -32,7 +32,7 @@ namespace Robust.ViewModel.ShoppingCart
             set 
             { 
                 _totalPrice = value;
-                OnPropertyChanged(nameof(TotalPrice));
+                OnPropertyChanged();
             }
         }
 

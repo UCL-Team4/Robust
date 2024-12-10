@@ -15,7 +15,7 @@ namespace Robust.Repositories
 {
     internal class CartRepository : ICartRepository
     {
-        public void Add(Product product, int customerId = 1)
+        public bool Add(Product product, int customerId = 1)
         {
             //IMPLEMENT LATER int cartId = GetCartIdByCustomerId(customerId);
 
@@ -34,7 +34,8 @@ namespace Robust.Repositories
             command.Parameters.AddWithValue("@ProductID", product.ProductID);
 
             connection.Open();
-            command.ExecuteNonQuery();
+            int rowsAffected = command.ExecuteNonQuery();
+            return rowsAffected > 0;
         }
 
         public bool Delete(int cartItemId = 1)
