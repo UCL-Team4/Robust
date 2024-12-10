@@ -72,10 +72,11 @@ public partial class PictogramSheetWindow : Window
             //Checks that the file is an image before the Product object is created
             if (ext == ".jpg" || ext == ".jpeg" || ext == ".png")
             {
-                Product CustomImage = new() { Name = "Custom", ImagePath = filepathAsString, Category = Category.EgnePiktogrammer };
+                Product CustomImage = new() { Name = "Custom", ImagePath = filepathAsString, Category = Category.EgnePiktogrammer, Price = 20.75M };
 
-                _pictogramSheetViewModel.Products.Add(CustomImage);
-                _pictogramSheetViewModel.SelectedCategory = Category.EgnePiktogrammer;
+                //_pictogramSheetViewModel.Products.Add(CustomImage);
+                //_pictogramSheetViewModel.SelectedCategory = Category.EgnePiktogrammer;
+                _pictogramSheetViewModel.AddToDatabase(CustomImage);
             }
             else
             {

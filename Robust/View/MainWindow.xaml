@@ -71,7 +71,7 @@
                 Margin="20"
                 Width="200"
                 Height="30"
-                Content="Design piktogram"
+                Content="Design piktogram-ark"
                 Command="{Binding CreateCustomPictogramCmd}"/>
         </StackPanel>
 

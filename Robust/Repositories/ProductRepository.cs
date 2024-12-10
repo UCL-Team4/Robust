@@ -6,14 +6,40 @@ using Robust.Enums.Category;
 using System.Collections.ObjectModel;
 using Robust.Repositories.Database;
 using Robust.Model.CartItem;
+using System.Data;
 
 namespace Robust.Repositories.ProductRepository;
 
 public class ProductRepository : IRepository
 {
-    public void Add()
+    public int Add(string filepath)
     {
-        throw new NotImplementedException();
+        int newProductId = 0;
+
+        using (SqlConnection connection = new SqlConnection(DatabaseConfig.ConnectionString))
+        {
+            using (SqlCommand command = new SqlCommand("AddProduct", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@Name", "Eget Piktogram");
+                command.Parameters.AddWithValue("@Description", "Dit helt eget piktogram!");
+                command.Parameters.AddWithValue("@ImagePath", filepath);
+                command.Parameters.AddWithValue("@Price", 20.75);
+                command.Parameters.AddWithValue("@CategoryID", 5);
+                command.Parameters.AddWithValue("@IsPictogram", 1);
+
+                connection.Open();
+
+                object result = command.ExecuteScalar();
+                if (result != null && int.TryParse(result.ToString(), out int productId))
+                {
+                    newProductId = productId;
+                }
+            }
+        }
+
+        return newProductId;
     }
 
     public void Delete()
@@ -36,7 +62,7 @@ public class ProductRepository : IRepository
 
             using (SqlDataReader reader = command.ExecuteReader())
             {
-                if (reader.Read())
+                while (reader.Read())
                 {
                     int CategoryID = (int)reader["CategoryID"];
 
