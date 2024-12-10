@@ -12,11 +12,18 @@ using Robust.Service.PictogramSheet;
 using Robust.Enums.Category;
 using System.Windows;
 using Robust.Service.ShoppingCart;
+using Robust.Repositories.ProductRepository;
+using Robust.Repositories;
+using Robust.Repositories.Interface;
 
 namespace Robust.ViewModel.PictogramSheetViewModel;
 
 public class PictogramSheetViewModel : ViewModelBase
 {
+    private ProductRepository _productRepo;
+    private CartRepository _cartRepo;
+
+
     private IWindowService _windowService;
     //This Collection is bound to the combobox which displays all the different categories.
     public ObservableCollection<Category> Categories { get; set; }
@@ -132,14 +139,22 @@ public class PictogramSheetViewModel : ViewModelBase
         SelectedProducts = [];
         _windowService = new WindowService();
 
+        _cartRepo = new();
+        _productRepo = new();
+
+
+
+
+        Products = _productRepo.GetAll(true);
+
         //Added only for debugging purposes
-        Products = new ObservableCollection<Product>
-        {
-            new Product {Name = "Bus", Category = Category.Transport, Description = "Et piktogram, som forestiller en bus", ImagePath = "C:/temp/Robust/Bus.jpg", Price = 38.00M},
-            new Product {Name = "Håndvask", Category = Category.Hygiejne, Description = "Et piktogram, som forestiller håndvask", ImagePath = "C:/temp/Robust/Handwashing.jpeg", Price = 38.00M},
-            new Product {Name = "Indkøbsvogn", Category = Category.IndkobOgShopping, Description = "Et piktogram, som forestiller en indkøbsvogn", ImagePath = "C:/temp/Robust/ShoppingCart.jpg", Price = 38.00M},
-            new Product {Name = "Taxa", Category = Category.Transport, Description = "Et piktogram, som forestiller en taxa", ImagePath = "C:/temp/Robust/Taxi.jpg", Price = 38.00M}
-        };
+        //Products = new ObservableCollection<Product>
+        //{
+        //    new Product {Name = "Bus", Category = Category.Transport, Description = "Et piktogram, som forestiller en bus", ImagePath = "C:/temp/Robust/Bus.jpg", Price = 38.00M},
+        //    new Product {Name = "Håndvask", Category = Category.Hygiejne, Description = "Et piktogram, som forestiller håndvask", ImagePath = "C:/temp/Robust/Handwashing.jpeg", Price = 38.00M},
+        //    new Product {Name = "Indkøbsvogn", Category = Category.IndkobOgShopping, Description = "Et piktogram, som forestiller en indkøbsvogn", ImagePath = "C:/temp/Robust/ShoppingCart.jpg", Price = 38.00M},
+        //    new Product {Name = "Taxa", Category = Category.Transport, Description = "Et piktogram, som forestiller en taxa", ImagePath = "C:/temp/Robust/Taxi.jpg", Price = 38.00M}
+        //};
 
         FillSelectedProducts();
     }
@@ -156,7 +171,7 @@ public class PictogramSheetViewModel : ViewModelBase
 
     private void AddProductToPictogramSheet()
     {
-        PictogramSheetItems.Add(SelectedProduct);
+      PictogramSheetItems.Add(SelectedProduct);
     }
 
     private bool CanAddProductToPictogramSheet() => SelectedProduct != null && PictogramSheetItems.Count < 24;
@@ -174,7 +189,13 @@ public class PictogramSheetViewModel : ViewModelBase
 
     private void AddProductToCart()
     {
-        //Needs implementation with database integration.
+        for (int i = 0; i < PictogramSheetItems.Count; i++)
+        {
+            _cartRepo.Add(PictogramSheetItems[i]);
+        }
+
+        PictogramSheetItems.Clear();
+        MessageBox.Show($"Piktogram Ark er tilføjet til kurven");
     }
 
     private bool CanAddProductToCart() => PictogramSheetItems.Count == 24;

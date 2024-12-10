@@ -22,15 +22,16 @@ public class ProductRepository : IRepository
     }
 
 
-    public ObservableCollection<Product> GetAll()
+    public ObservableCollection<Product> GetAll(bool isPictogram = false)
     {
-        string query = "SELECT * FROM Product";
+        string query = "SELECT * FROM Product WHERE isPictogram = @IsPictogram";
         ObservableCollection<Product> products = [];
 
         using (SqlConnection connection = new SqlConnection(DatabaseConfig.ConnectionString))
         {
             SqlCommand command = new SqlCommand(query, connection);
-            
+            command.Parameters.AddWithValue("@IsPictogram", isPictogram);
+
             connection.Open();
 
             using (SqlDataReader reader = command.ExecuteReader())

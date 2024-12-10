@@ -179,9 +179,10 @@ public class ProductViewModel : ViewModelBase
 
     private void AddProductToCart()
     {
-        MessageBox.Show($"Produktet {SelectedProduct.Name} blev tilføjet til kurven");
-
-        _cartRepository.Add(SelectedProduct);
+        if (_cartRepository.Add(SelectedProduct))
+        {
+            MessageBox.Show($"Produktet {SelectedProduct.Name} blev tilføjet til kurven");
+        }
     }
 
     private bool CanAddProductToCart()

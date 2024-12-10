@@ -6,7 +6,7 @@ namespace Robust.Repositories.Interface;
 
 public interface IRepository
 {
-    public ObservableCollection<Product> GetAll();
+    public ObservableCollection<Product> GetAll(bool isPictogram = false);
     public void GetByID();
     public void Add();
     public void Update();
@@ -16,7 +16,7 @@ public interface IRepository
 
 public interface ICartRepository
 {
-    public void Add(Product product, int customerId = 1);
+    public bool Add(Product product, int customerId = 1);
     public ObservableCollection<CartItem> GetAll(int customerId = 1);
     public void Update(Product product, int customerId = 1);
     public bool Delete(int cartItemId = 1);
