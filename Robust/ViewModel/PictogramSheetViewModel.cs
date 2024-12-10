@@ -199,4 +199,21 @@ public class PictogramSheetViewModel : ViewModelBase
     }
 
     private bool CanAddProductToCart() => PictogramSheetItems.Count == 24;
+
+    //This method is a quick fix to store the custom pictograms from code-behind in the database.
+    public void AddToDatabase(Product product)
+    {
+        int NewProductID = _productRepo.Add(product.ImagePath);
+        if (NewProductID > 0)
+        {
+            product.ProductID = NewProductID;
+            Products.Add(product);
+        }
+        else
+        {
+            Products = _productRepo.GetAll(true);
+        }
+        //We need to select the category otherwise the UI won't update
+        SelectedCategory = Category.EgnePiktogrammer;
+    }
 }

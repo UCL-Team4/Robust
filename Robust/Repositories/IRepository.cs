@@ -8,7 +8,7 @@ public interface IRepository
 {
     public ObservableCollection<Product> GetAll(bool isPictogram = false);
     public void GetByID();
-    public void Add();
+    public int Add(string filePath);
     public void Update();
     public void Delete();
 }
