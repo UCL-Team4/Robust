@@ -152,35 +152,22 @@
             <TextBlock
                 Margin="0,10"
                 Width="360"
-                Text="Du kan selv uploade piktogrammer ved at trække et til feltet i midten. Billederne skal være kvadratiske i enten .jpg, .jpeg eller .png-format."
-                TextWrapping="Wrap"/>
-            <!--<Image 
-                x:Name="DropImage"
-                AllowDrop="True"
-                Width="200"
-                Height="60"
-                Source="C:/temp/Robust/DragAndDrop.png"/>-->
-            <Image
-                x:Name="UploadPictogram"
-                Source="C:/temp/Robust/Upload.jpg" 
+                Text="Du kan selv uploade piktogrammer ved at klikke på knappen til højre. Billederne skal være kvadratiske i enten .jpg, .jpeg eller .png-format."
+                TextWrapping="Wrap" />
+            <Button
                 Height="60"
                 Margin="20,0"
-                AllowDrop="True" 
-                Drop="UploadPictogram_Drop"/>
-            <!--<StackPanel
-                x:Name="DropPanel"
+                Command="{Binding UploadPictogramCmd}"> 
+                <Image 
+                    Source="C:/temp/Robust/Upload.jpg" />
+            </Button>
+            <!--<Image
+                x:Name="UploadPictogram"
+                Source="C:/temp/Robust/Upload.jpg"
+                Height="60"
+                Margin="20,0"
                 AllowDrop="True"
-                Width="200"
-                Height="50"
-                Margin="0,0,20,5"
-                Background="LightBlue"
-                Drop="DropPanel_Drop">
-                <Label 
-                    Height="50"
-                    Content="Træk dit billede her for upload"
-                    HorizontalAlignment="Center"
-                    VerticalContentAlignment="Center"/>
-            </StackPanel>-->
+                Drop="UploadPictogram_Drop" />-->            
             <Button
                 Style="{DynamicResource RoundButton}"
                 Width="100"
@@ -200,7 +187,7 @@
                 Width="100"
                 Height="50"
                 Margin="0,0,20,5"
-                Content="Tiløj til kurv"
+                Content="Tilføj til kurv"
                 Command="{Binding AddProductToCartCmd}" />
         </StackPanel>
     </Grid>
