@@ -24,39 +24,40 @@ namespace Robust.View;
 /// </summary>
 public partial class PictogramSheetWindow : Window
 {
-    private PictogramSheetViewModel _pictogramSheetViewModel;
+    //private PictogramSheetViewModel _pictogramSheetViewModel;
     
     public PictogramSheetWindow()
     {
         InitializeComponent();
-        _pictogramSheetViewModel = new PictogramSheetViewModel();
-        DataContext = _pictogramSheetViewModel;
+        //_pictogramSheetViewModel = new PictogramSheetViewModel();
+        //DataContext = _pictogramSheetViewModel;
+        DataContext = new PictogramSheetViewModel();
     }
 
-    //This event handler is used when the user drags and drops an image on the upload image.
-    private void UploadPictogram_Drop(object sender, DragEventArgs e)
-    {
-        if (e.Data.GetDataPresent(DataFormats.FileDrop))
-        {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+    ////This event handler is used when the user drags and drops an image on the upload image.
+    //private void UploadPictogram_Drop(object sender, DragEventArgs e)
+    //{
+    //    if (e.Data.GetDataPresent(DataFormats.FileDrop))
+    //    {
+    //        string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
-            Uri filepath = new Uri(files[0]);
-            string filepathAsString = filepath.ToString();
-            string ext = System.IO.Path.GetExtension(filepathAsString);
+    //        Uri filepath = new Uri(files[0]);
+    //        string filepathAsString = filepath.ToString();
+    //        string ext = System.IO.Path.GetExtension(filepathAsString);
 
-            //Checks that the file is an image before the Product object is created
-            if (ext == ".jpg" || ext == ".jpeg" || ext == ".png")
-            {
-                Product CustomImage = new() { Name = "Custom", ImagePath = filepathAsString, Category = Category.EgnePiktogrammer, Price = 20.75M };
+    //        //Checks that the file is an image before the Product object is created
+    //        if (ext == ".jpg" || ext == ".jpeg" || ext == ".png")
+    //        {
+    //            Product CustomImage = new() { Name = "Custom", ImagePath = filepathAsString, Category = Category.EgnePiktogrammer, Price = 20.75M };
 
-                //_pictogramSheetViewModel.Products.Add(CustomImage);
-                //_pictogramSheetViewModel.SelectedCategory = Category.EgnePiktogrammer;
-                _pictogramSheetViewModel.AddToDatabase(CustomImage);
-            }
-            else
-            {
-                MessageBox.Show("Du har desværre valgt et ugyldigt billedformat - du kan kun bruge .jpg, .jpeg og .png. Prøv igen!");
-            }
-        }
-    }
+    //            //_pictogramSheetViewModel.Products.Add(CustomImage);
+    //            //_pictogramSheetViewModel.SelectedCategory = Category.EgnePiktogrammer;
+    //            _pictogramSheetViewModel.AddToDatabase(CustomImage);
+    //        }
+    //        else
+    //        {
+    //            MessageBox.Show("Du har desværre valgt et ugyldigt billedformat - du kan kun bruge .jpg, .jpeg og .png. Prøv igen!");
+    //        }
+    //    }
+    //}
 }
