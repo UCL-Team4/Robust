@@ -58,14 +58,14 @@ public class LoginViewModel : ViewModelBase
 
         if (success)
         {
-            MessageBox.Show("Registration successful!");
+            MessageBox.Show("Registrering fuldført!");
             UserStore.username = Email;
             UserStore.password = Password;
         }
         else
         {
-            MessageBox.Show("Registration failed. User already exists.");
-        };
+            MessageBox.Show("Registrering mislykkedes. Brugeren findes allerede.");
+        }
     }
 
     public LoginViewModel()
