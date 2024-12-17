@@ -14,6 +14,7 @@ using Robust.Service.ShoppingCart;
 using Robust.Service.PictogramSheet;
 using Robust.Service.Login;
 using Robust.Repositories;
+using Robust.ViewModel.User;
 
 namespace Robust.ViewModel.ProductViewModel;
 
@@ -197,10 +198,12 @@ public class ProductViewModel : ViewModelBase
         _windowServicePictogramSheet.ShowDialog();
     }
 
-    public RelayCommand ShowLoginWindowCmd => new RelayCommand(ShowLoginWindow);
+    public RelayCommand ShowLoginWindowCmd => new RelayCommand(ShowLoginWindow, CanShowLoginWindow);
 
     private void ShowLoginWindow()
     {
         _windowServiceLoginWindow.ShowDialog();
     }
+
+    private bool CanShowLoginWindow() => UserStore.username == null || UserStore.password == null;
 }

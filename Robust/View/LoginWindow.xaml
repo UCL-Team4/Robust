@@ -93,6 +93,7 @@
                 Content="Login"
                 Width="100"
                 Height="30"
+                Command="{Binding LoginToSiteCmd}"
                 Background="LightGreen"/>
             <Button
                 Content="Opret konto"
