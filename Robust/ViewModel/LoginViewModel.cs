@@ -1,4 +1,5 @@
 ﻿using Robust.MVVM.ViewModelBase;
+using Robust.Repositories.Interface;
 using Robust.Repositories.User;
 using Robust.ViewModel.RelayCommands;
 using Robust.ViewModel.User;
@@ -33,21 +34,39 @@ public class LoginViewModel : ViewModelBase
 
     private void LoginToSite()
     {
-        // Paste this shit in and make it bounce
+        int? customerId = _userRepository.Login(Email, Password);
 
-        if (Email != null)
+        if (customerId != null && customerId > 0)
         {
-            int? customerId = _userRepository.Login(Email, Password);
-
-            if (customerId != null && customerId > 0)
-            {
-                UserStore.username = Email;
-                UserStore.password = Password;
-            }
+            UserStore.username = Email;
+            UserStore.password = Password;
+            MessageBox.Show("Du er nu logget ind!");
+        } else
+        {
+            MessageBox.Show("Forkert Email eller Adgangskode!");
         }
     }
 
-    private bool CanLogIn() => !string.IsNullOrEmpty( Password ) && !string.IsNullOrEmpty(Email);
+    private bool CanLogIn() => !string.IsNullOrEmpty(Password) && !string.IsNullOrEmpty(Email) && string.IsNullOrEmpty(UserStore.password);
+
+
+    public RelayCommand RegisterCmd => new RelayCommand(RegisterAccount, CanLogIn);
+
+    private void RegisterAccount()
+    {
+        bool success = _userRepository.Register(Email, Password);
+
+        if (success)
+        {
+            MessageBox.Show("Registration successful!");
+            UserStore.username = Email;
+            UserStore.password = Password;
+        }
+        else
+        {
+            MessageBox.Show("Registration failed. User already exists.");
+        };
+    }
 
     public LoginViewModel()
     {
