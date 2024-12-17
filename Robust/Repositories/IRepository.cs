@@ -21,3 +21,8 @@ public interface ICartRepository
     public void Update(Product product, int customerId = 1);
     public bool Delete(int cartItemId = 1);
 }
+
+public interface IUserRepository
+{
+    public int? Login(string email, string password);
+}
