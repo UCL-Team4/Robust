@@ -29,7 +29,7 @@ public interface ICustomerRepository
     public Customer GetByID(int id);
 }
 
-public interface IOrderRepository
+public interface IUserRepository
 {
-    public void Add(Order order);
+    public int? Login(string email, string password);
 }

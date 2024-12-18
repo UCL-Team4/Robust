@@ -15,6 +15,7 @@ using Robust.Service.ShoppingCart;
 using Robust.Repositories.ProductRepository;
 using Robust.Repositories;
 using Robust.Repositories.Interface;
+using Microsoft.Win32;
 
 namespace Robust.ViewModel.PictogramSheetViewModel;
 
@@ -215,5 +216,26 @@ public class PictogramSheetViewModel : ViewModelBase
         }
         //We need to select the category otherwise the UI won't update
         SelectedCategory = Category.EgnePiktogrammer;
+    }
+
+    public RelayCommand UploadPictogramCmd => new RelayCommand(UploadPictogram);
+
+    private void UploadPictogram()
+    {
+        OpenFileDialog fileDialog = new OpenFileDialog();
+        fileDialog.Filter = "Billedfiler | *.jpg; *.png";
+        fileDialog.Title = "Vælg venligst billedfiler i .jpg-format";
+        fileDialog.Multiselect = true;
+
+        bool? success = fileDialog.ShowDialog();
+        if (success == true)
+        {
+            string[] paths = fileDialog.FileNames;
+            foreach (string path in paths)
+            {
+                Product CustomImage = new() { Name = "Custom", ImagePath = path, Category = Category.EgnePiktogrammer, Price = 20.75M };
+                AddToDatabase(CustomImage);
+            }
+        }
     }
 }

@@ -93,12 +93,14 @@
                 Content="Login"
                 Width="100"
                 Height="30"
+                Command="{Binding LoginToSiteCmd}"
                 Background="LightGreen"/>
             <Button
                 Content="Opret konto"
                 Margin="0,20"
                 Width="100"
                 Height="30"
+                Command="{Binding RegisterCmd}"
                 Background="LightBlue" />
         </StackPanel>
 
