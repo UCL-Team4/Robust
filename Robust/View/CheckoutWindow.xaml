@@ -53,12 +53,14 @@
                         MinHeight="275">
                         <Label 
                             Content="Fornavn:"/>
-                        <TextBox />
+                        <TextBox 
+                            Text="{Binding SelectedCustomer.FirstName}"/>
                         <Label
                             Content="Efternavn:" />
-                        <TextBox />
+                        <TextBox 
+                            Text="{Binding SelectedCustomer.LastName}"/>
                         <Label
-                            Content="Adresse:" />
+                            Content="Vej:" />
                         <TextBox />
                         <Label
                             Content="Postnr.:" />
@@ -68,7 +70,8 @@
                         <TextBox />
                         <Label
                             Content="Email:" />
-                        <TextBox />
+                        <TextBox 
+                            Text="{Binding SelectedCustomer.Email}"/>
                     </StackPanel>                    
                 </Border>
             </StackPanel>
@@ -154,7 +157,7 @@
                                     Width="*" />
                                 <DataGridTextColumn
                                     Header="Antal"
-                                    Binding="{Binding StockQuantity}"
+                                    Binding="{Binding Quantity}"
                                     Width="*" />
                                 <DataGridTextColumn
                                     Header="Pris"
@@ -215,10 +218,14 @@
             Grid.Row="5"
             Orientation="Horizontal"
             HorizontalAlignment="Right">
-            <Label 
-                Content="Totalpris:"/>
+            <TextBlock 
+                Text="Totalpris:"
+                FontSize="15"
+                Margin="10"/>
             <TextBlock
-                Width="30"
+                Width="Auto"
+                Margin="10"
+                FontSize="15"
                 Text="{Binding TotalPrice}"/>
             <Button
                 Width="100"

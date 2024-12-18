@@ -16,7 +16,6 @@ public class CheckoutWindowService : IWindowService
     public void ShowDialog()
     {
         var dialog = new CheckoutWindow();
-        dialog.DataContext = new CheckoutViewModel();
         dialog.ShowDialog();
     }
 }

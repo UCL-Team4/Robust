@@ -62,7 +62,7 @@ namespace Robust.ViewModel.ShoppingCart
 
         private void ShowCheckout()
         {
-            //_windowService.ShowDialog(ShoppingCartList);
+            _windowService.ShowDialog();
         }
 
         private bool CanShowCheckout()
