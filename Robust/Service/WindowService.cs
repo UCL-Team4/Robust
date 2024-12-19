@@ -18,7 +18,6 @@ public class WindowService : IWindowService
     public void ShowDialog()
     {
         var dialog = new ShoppingCartWindow();
-        dialog.DataContext = new ShoppingCartViewModel();
         dialog.ShowDialog();
     }
 }

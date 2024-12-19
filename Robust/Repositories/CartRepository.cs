@@ -94,9 +94,21 @@ namespace Robust.Repositories
             return cartItems;
         }
 
-        public void Update(Product product, int customerId = 1)
+        public bool Update(CartItem cartItem, int quantity, int customerId = 1)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(DatabaseConfig.ConnectionString))
+            {
+                connection.Open();
+
+                SqlCommand command = new SqlCommand("uspUpdateQuantity", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;              
+
+                command.Parameters.AddWithValue("@CartItemID", cartItem.CartItemID);
+                command.Parameters.AddWithValue("@Quantity", quantity);
+                
+                int rowsAffected = command.ExecuteNonQuery();
+                return rowsAffected > 0;
+            }
         }
     }
 }

@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:Robust"
     mc:Ignorable="d"
-    Title="MainWindow"
+    Title="Robust webshop"
     Height="650"
     Width="900"
     WindowStartupLocation="CenterScreen">
@@ -163,74 +163,5 @@
                 Content="Tiløj til kurv"
                 Command="{Binding AddProductToCartCmd}" />
         </StackPanel>
-
-        <!--The following control is inspired by this tutorial: https://www.youtube.com/watch?v=aRYiUyz2_RM&t=24s--><!--
-        <ScrollViewer
-            Grid.Row="3"
-            Margin="20,0"
-            VerticalScrollBarVisibility="Auto">
-            <ItemsControl
-                x:Name="ProductViewer"
-                ItemsSource="{Binding SelectedProducts}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border
-                            Width="200"
-                            Margin="0,0,10,10"
-                            Padding="10"
-                            BorderBrush="LightGray"
-                            BorderThickness="2"
-                            CornerRadius="2">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition
-                                        Height="auto" />
-                                    <RowDefinition
-                                        Height="auto" />
-                                    <RowDefinition
-                                        Height="*" />
-                                    <RowDefinition
-                                        Height="auto" />
-                                    <RowDefinition
-                                        Height="auto" />
-                                </Grid.RowDefinitions>
-
-                                <Image
-                                    Source="{Binding ImagePath}"
-                                    Grid.Row="0"
-                                    Height="150"
-                                    Width="150" />
-                                <TextBlock
-                                    Grid.Row="1"
-                                    Text="{Binding Name}"
-                                    FontWeight="Bold"
-                                    TextAlignment="Center" />
-                                <TextBlock
-                                    Grid.Row="2"
-                                    Text="{Binding Description}"
-                                    TextWrapping="Wrap"
-                                    TextAlignment="Center" />
-                                <TextBlock
-                                    Grid.Row="3"
-                                    Text="{Binding Price, StringFormat={}{0} DKK}"
-                                    TextAlignment="Center" />
-                                <Button
-                                    Grid.Row="4"
-                                    Content="Tilføj til kurv"
-                                    Height="30"
-                                    Width="90"
-                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContentPresenter}, Path=Content}"
-                                    Command="{Binding ElementName=ProductViewer, Path=DataContext.AddProductToCartCmd}"/>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </ScrollViewer>-->
     </Grid>
 </Window>

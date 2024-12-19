@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Robust.ViewModel.CustomerAccount;
 
 namespace Robust.View
 {
@@ -22,6 +23,7 @@ namespace Robust.View
         public CustomerAccountWindow()
         {
             InitializeComponent();
+            DataContext = new CustomerAccountViewModel();
         }
     }
 }
