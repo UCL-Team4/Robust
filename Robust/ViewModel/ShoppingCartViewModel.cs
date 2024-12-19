@@ -15,7 +15,7 @@ using Robust.Repositories.Interface;
 using Robust.ViewModel.User;
 
 namespace Robust.ViewModel.ShoppingCart
-{
+{ 
     public class ShoppingCartViewModel : ViewModelBase
     {
 

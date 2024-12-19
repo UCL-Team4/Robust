@@ -169,17 +169,25 @@ public class ProductViewModel : ViewModelBase
         FillSelectedProducts();
     }
 
-    public RelayCommand ShowShoppingCartCmd => new RelayCommand(ShowShoppingCart);
+    public RelayCommand ShowShoppingCartCmd => new RelayCommand(ShowShoppingCart, CanShowShoppingCart);
 
     private void ShowShoppingCart()
     {
         _windowService.ShowDialog();        
     }
 
+    private bool CanShowShoppingCart() => !string.IsNullOrEmpty(UserStore.username) && !string.IsNullOrEmpty(UserStore.password);
+
     public RelayCommand AddProductToCartCmd => new RelayCommand(AddProductToCart, CanAddProductToCart);
 
     private void AddProductToCart()
     {
+        if (string.IsNullOrEmpty(UserStore.username) || string.IsNullOrEmpty(UserStore.password))
+        {
+            MessageBox.Show("Du skal have en konto for at kunne tilføje noget til din indkøbskurv.");
+            return;
+        }
+
         if (_cartRepository.Add(SelectedProduct, UserStore.username, UserStore.password))
         {
             MessageBox.Show($"Produktet {SelectedProduct.Name} blev tilføjet til kurven");

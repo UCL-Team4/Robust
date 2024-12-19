@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using Azure.Identity;
 using Robust.Repositories.api;
+using Robust.Model.Customer;
 
 namespace Robust.Repositories.CheckoutRepository;
 
@@ -78,10 +79,8 @@ public class CheckoutRepository
         }
     }
 
-    private decimal CalculateCartPrice (string username, string password)
+    private decimal CalculateCartPrice(int customerId)
     {
-        int customerId = Api.GetCustomerIDFromLogin(username, password);
-
         int cartId = Api.GetCartIDFromCustomerID(customerId);
         decimal totalPrice = 0;
 
