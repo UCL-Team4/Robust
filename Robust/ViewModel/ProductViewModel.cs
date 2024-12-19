@@ -180,9 +180,12 @@ public class ProductViewModel : ViewModelBase
 
     private void AddProductToCart()
     {
-        if (_cartRepository.Add(SelectedProduct))
+        if (_cartRepository.Add(SelectedProduct, UserStore.username, UserStore.password))
         {
             MessageBox.Show($"Produktet {SelectedProduct.Name} blev tilføjet til kurven");
+        } else
+        {
+            MessageBox.Show($"Fejl! Prøv igen");
         }
     }
 

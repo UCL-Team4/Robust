@@ -18,10 +18,9 @@ public interface IRepository
 
 public interface ICartRepository
 {
-    public bool Add(Product product, int customerId = 1);
-    public ObservableCollection<CartItem> GetAll(int customerId = 1);
-    public void Update(Product product, int customerId = 1);
-    public bool Delete(int cartItemId = 1);
+    public bool Add(Product product, string username, string password);
+    public ObservableCollection<CartItem> GetAll(string username, string password);
+    public bool Delete(int cartItemId, string username, string password);
 }
 
 public interface ICustomerRepository

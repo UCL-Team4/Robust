@@ -16,6 +16,7 @@ using Robust.Repositories.ProductRepository;
 using Robust.Repositories;
 using Robust.Repositories.Interface;
 using Microsoft.Win32;
+using Robust.ViewModel.User;
 
 namespace Robust.ViewModel.PictogramSheetViewModel;
 
@@ -192,7 +193,7 @@ public class PictogramSheetViewModel : ViewModelBase
     {
         for (int i = 0; i < PictogramSheetItems.Count; i++)
         {
-            _cartRepo.Add(PictogramSheetItems[i]);
+            _cartRepo.Add(PictogramSheetItems[i], UserStore.username, UserStore.password);
         }
 
         PictogramSheetItems.Clear();

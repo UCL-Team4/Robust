@@ -12,6 +12,7 @@ using Robust.MVVM.ViewModelBase;
 using Robust.Model.CartItem;
 using Robust.Repositories;
 using Robust.Repositories.Interface;
+using Robust.ViewModel.User;
 
 namespace Robust.ViewModel.ShoppingCart
 {
@@ -75,7 +76,7 @@ namespace Robust.ViewModel.ShoppingCart
         private void DeleteSelectedProduct()
         {
 
-            bool didDelete = _cartRepository.Delete(SelectedProduct.CartItemID);
+            bool didDelete = _cartRepository.Delete(SelectedProduct.CartItemID, UserStore.username, UserStore.password);
 
 
             if (didDelete)
@@ -91,7 +92,7 @@ namespace Robust.ViewModel.ShoppingCart
         public ShoppingCartViewModel() 
         {
             _cartRepository = new();
-            ShoppingCartList = _cartRepository.GetAll();
+            ShoppingCartList = _cartRepository.GetAll(UserStore.username, UserStore.password);
             _windowService = new CheckoutWindowService();
 
             TotalPrice = 0;

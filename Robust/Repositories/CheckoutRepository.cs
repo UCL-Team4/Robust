@@ -105,7 +105,7 @@ public class CheckoutRepository
 
     private bool ConvertCartItems(SqlConnection connection, SqlTransaction transaction, int orderID)
     {
-        ObservableCollection<CartItem> cartItems = _cartRepository.GetAll();
+        ObservableCollection<CartItem> cartItems = _cartRepository.GetAll("test", "test");
 
         foreach (var cartItem in cartItems)
         {

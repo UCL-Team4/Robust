@@ -20,6 +20,7 @@ using System.Transactions;
 using System.Data.Common;
 using Microsoft.VisualBasic;
 using Robust.Repositories.CheckoutRepository;
+using Robust.ViewModel.User;
 
 namespace Robust.ViewModel.CheckoutViewModel
 {
@@ -40,7 +41,7 @@ namespace Robust.ViewModel.CheckoutViewModel
             _checkoutRepository = new();
             //Check for security problems
             SelectedCustomer = _customerRepository.GetByID(1);
-            ShoppingCartList = _cartRepository.GetAll();
+            ShoppingCartList = _cartRepository.GetAll(UserStore.username, UserStore.password);
             TotalPrice = 0;
             CalculateTotalPrice();
         }
@@ -56,7 +57,7 @@ namespace Robust.ViewModel.CheckoutViewModel
 
         public RelayCommand CheckoutCmd => new RelayCommand(Checkout, CanCheckout);      
 
-        private bool CanCheckout() => _cartRepository.GetAll().Count > 0;
+        private bool CanCheckout() => _cartRepository.GetAll(UserStore.username, UserStore.password).Count > 0;
         
         private void Checkout()
         {
