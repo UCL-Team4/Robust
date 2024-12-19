@@ -61,7 +61,7 @@ namespace Robust.ViewModel.CheckoutViewModel
         
         private void Checkout()
         {
-            if (_checkoutRepository.Checkout())
+            if (_checkoutRepository.Checkout(UserStore.username, UserStore.password))
             {
                 MessageBox.Show("Tak for din ordre! Hav en god dag!");
             }

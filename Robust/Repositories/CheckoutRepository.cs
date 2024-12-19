@@ -10,6 +10,8 @@ using Robust.Model.CartItem;
 using Robust.Repositories.Interface;
 using System.Collections.ObjectModel;
 using System.Data;
+using Azure.Identity;
+using Robust.Repositories.api;
 
 namespace Robust.Repositories.CheckoutRepository;
 
@@ -17,7 +19,7 @@ public class CheckoutRepository
 {
     private CartRepository _cartRepository = new CartRepository();
     
-    public bool Checkout()
+    public bool Checkout(string username, string password)
     {
         using (SqlConnection connection = new SqlConnection(DatabaseConfig.ConnectionString))
         {
@@ -26,22 +28,22 @@ public class CheckoutRepository
             transaction = connection.BeginTransaction();
             try
             {
-                int test_customerID = 1;
-                int id = CreateOrder(connection, transaction, test_customerID);
+                int customerId = Api.GetCustomerIDFromLogin(username, password);
+                int id = CreateOrder(connection, transaction, customerId);
                 if (id == -1)
                 {
                     transaction.Rollback();
                     return false;
                 }
 
-                if (!ConvertCartItems(connection, transaction, id))
+                if (!ConvertCartItems(connection, transaction, id, username, password))
                 {
                     transaction.Rollback();
                     return false;
                 }
 
-                int test_cartID = 1;
-                if (!DeleteCartItems(connection, transaction, test_cartID))
+                int cartId = Api.GetCartIDFromCustomerID(customerId);
+                if (!DeleteCartItems(connection, transaction, cartId))
                 {
                     transaction.Rollback();
                     return false;
@@ -76,11 +78,11 @@ public class CheckoutRepository
         }
     }
 
-    private decimal CalculateCartPrice (int customerId = 1)
+    private decimal CalculateCartPrice (string username, string password)
     {
-        //IMPLEMENT LATER int cartId = GetCartIdByCustomerId(customerId);
+        int customerId = Api.GetCustomerIDFromLogin(username, password);
 
-        int cartId = 1;
+        int cartId = Api.GetCartIDFromCustomerID(customerId);
         decimal totalPrice = 0;
 
         using (var connection = new SqlConnection(DatabaseConfig.ConnectionString))
@@ -103,9 +105,9 @@ public class CheckoutRepository
         return totalPrice;
     }
 
-    private bool ConvertCartItems(SqlConnection connection, SqlTransaction transaction, int orderID)
+    private bool ConvertCartItems(SqlConnection connection, SqlTransaction transaction, int orderID, string username, string password)
     {
-        ObservableCollection<CartItem> cartItems = _cartRepository.GetAll("test", "test");
+        ObservableCollection<CartItem> cartItems = _cartRepository.GetAll(username, password);
 
         foreach (var cartItem in cartItems)
         {
