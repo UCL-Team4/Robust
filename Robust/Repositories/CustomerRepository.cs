@@ -12,19 +12,22 @@ using Robust.Model.Customer;
 using Robust.Model.Product;
 using Robust.Repositories.Interface;
 using Robust.Repositories.Database;
+using Robust.Repositories.api;
 
 namespace Robust.Repositories
 {
     class CustomerRepository : ICustomerRepository
     {
-        public Customer GetByID(int id)
+        public Customer GetByID(string username, string password)
         {
+            int customerId = Api.GetCustomerIDFromLogin(username, password);
+
             using (SqlConnection connection = new SqlConnection(DatabaseConfig.ConnectionString))
             {
                 using (var command = new SqlCommand("uspGetCustomerByID", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@CustomerID", id);
+                    command.Parameters.AddWithValue("@CustomerID", customerId);
 
                     //This was added to the code from the learning object.
                     connection.Open();

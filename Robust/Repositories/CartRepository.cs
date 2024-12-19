@@ -2,6 +2,7 @@
 using Robust.Enums.Category;
 using Robust.Model.CartItem;
 using Robust.Model.Product;
+using Robust.Repositories.api;
 using Robust.Repositories.Database;
 using Robust.Repositories.Interface;
 using System;
@@ -15,15 +16,54 @@ namespace Robust.Repositories
 {
     internal class CartRepository : ICartRepository
     {
-        public bool Add(Product product, int customerId = 1)
+        private int CreateCart(int customerId)
         {
-            //IMPLEMENT LATER int cartId = GetCartIdByCustomerId(customerId);
+            int newCartId = -1;
 
-            int cartId = 1;
+            string query = @"
+            INSERT INTO Cart (CustomerID) 
+            OUTPUT INSERTED.CartID
+            VALUES (@customerID)";
 
+            using (SqlConnection connection = new SqlConnection(DatabaseConfig.ConnectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@customerID", customerId);
+
+                    object result = command.ExecuteScalar();
+
+                    if (result != null && int.TryParse(result.ToString(), out int id))
+                    {
+                        newCartId = id;
+                    }
+                }
+            }
+
+            return newCartId;
+        }
+
+        public bool Add(Product product, string username, string password)
+        {
+            int customerId = Api.GetCustomerIDFromLogin(username, password);
+
+            if (customerId == -1)
+            {
+                return false;
+            }
+
+            int cartId = Api.GetCartIDFromCustomerID(customerId);
+            // Check if the cart dosn't exsist
             if (cartId == -1)
             {
-                Console.WriteLine("Cart not found for the customer.");
+                // Create the missing Cart to the customerID
+                cartId = CreateCart(customerId);
+
+                // make sure the cart has been created
+                if (cartId == -1)
+                    return false;
             }
 
             using SqlConnection connection = new SqlConnection(DatabaseConfig.ConnectionString);
@@ -38,16 +78,20 @@ namespace Robust.Repositories
             return rowsAffected > 0;
         }
 
-        public bool Delete(int cartItemId = 1)
+        public bool Delete(int cartItemId, string username, string password)
         {
+            int customerID = Api.GetCustomerIDFromLogin(username, password);
+            int cartID = Api.GetCartIDFromCustomerID(customerID);
+
             using SqlConnection connection = new SqlConnection(DatabaseConfig.ConnectionString);
 
-            string query = "DELETE FROM CartItems WHERE CartItemID = @CartItemID";
+            string query = "DELETE FROM CartItems WHERE CartItemID = @CartItemID AND CartID = @CartID";
 
             using SqlCommand command = new SqlCommand(query, connection);
 
             command.CommandType = System.Data.CommandType.Text;
             command.Parameters.AddWithValue("@CartItemID", cartItemId);
+            command.Parameters.AddWithValue("@CartID", cartID);
 
             connection.Open();
 
@@ -57,11 +101,16 @@ namespace Robust.Repositories
         }
 
 
-        public ObservableCollection<CartItem> GetAll(int customerId = 1)
+        public ObservableCollection<CartItem> GetAll(string username, string password)
         {
-            //IMPLEMENT LATER int cartId = GetCartIdByCustomerId(customerId);
+            int customerId = Api.GetCustomerIDFromLogin(username, password);
+            int cartId = Api.GetCartIDFromCustomerID(customerId);
 
-            int cartId = 1;
+            // If cart dosn't exsist (user havent added to his cart before just return empty array)
+            if (cartId == -1)
+            {
+                return [];
+            }
 
             var cartItems = new ObservableCollection<CartItem>();
 
@@ -92,11 +141,6 @@ namespace Robust.Repositories
             }
 
             return cartItems;
-        }
-
-        public void Update(Product product, int customerId = 1)
-        {
-            throw new NotImplementedException();
         }
     }
 }

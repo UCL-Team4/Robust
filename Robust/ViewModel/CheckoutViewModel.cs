@@ -20,6 +20,7 @@ using System.Transactions;
 using System.Data.Common;
 using Microsoft.VisualBasic;
 using Robust.Repositories.CheckoutRepository;
+using Robust.ViewModel.User;
 
 namespace Robust.ViewModel.CheckoutViewModel
 {
@@ -39,8 +40,8 @@ namespace Robust.ViewModel.CheckoutViewModel
             _cartRepository = new();
             _checkoutRepository = new();
             //Check for security problems
-            SelectedCustomer = _customerRepository.GetByID(1);
-            ShoppingCartList = _cartRepository.GetAll();
+            SelectedCustomer = _customerRepository.GetByID(UserStore.username, UserStore.password);
+            ShoppingCartList = _cartRepository.GetAll(UserStore.username, UserStore.password);
             TotalPrice = 0;
             CalculateTotalPrice();
         }
@@ -56,11 +57,11 @@ namespace Robust.ViewModel.CheckoutViewModel
 
         public RelayCommand CheckoutCmd => new RelayCommand(Checkout, CanCheckout);      
 
-        private bool CanCheckout() => _cartRepository.GetAll().Count > 0;
+        private bool CanCheckout() => _cartRepository.GetAll(UserStore.username, UserStore.password).Count > 0;
         
         private void Checkout()
         {
-            if (_checkoutRepository.Checkout())
+            if (_checkoutRepository.Checkout(UserStore.username, UserStore.password))
             {
                 MessageBox.Show("Tak for din ordre! Hav en god dag!");
             }
