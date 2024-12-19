@@ -25,7 +25,7 @@ public interface ICartRepository
 
 public interface ICustomerRepository
 {
-    public Customer GetByID(int id);
+    public Customer GetByID(string username, string password);
 }
 
 public interface IUserRepository

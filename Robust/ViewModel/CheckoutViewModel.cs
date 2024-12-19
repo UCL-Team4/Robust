@@ -40,7 +40,7 @@ namespace Robust.ViewModel.CheckoutViewModel
             _cartRepository = new();
             _checkoutRepository = new();
             //Check for security problems
-            SelectedCustomer = _customerRepository.GetByID(1);
+            SelectedCustomer = _customerRepository.GetByID(UserStore.username, UserStore.password);
             ShoppingCartList = _cartRepository.GetAll(UserStore.username, UserStore.password);
             TotalPrice = 0;
             CalculateTotalPrice();
