@@ -123,7 +123,7 @@ namespace Robust.ViewModel.ShoppingCart
 
         private void UpdateSelectedProduct()
         {
-            if (_cartRepository.Update(SelectedProduct, SelectedQuantity))
+            if (_cartRepository.Update(SelectedProduct, SelectedQuantity, UserStore.username, UserStore.password))
                 MessageBox.Show("Antallet blev opdateret!");
             else
                 MessageBox.Show("Antallet blev ikke opdateret - der skete en fejl!");

@@ -143,8 +143,11 @@ namespace Robust.Repositories
             return cartItems;
         }
         
-        public bool Update(CartItem cartItem, int quantity, int customerId = 1)
+        public bool Update(CartItem cartItem, int quantity, string username, string password)
         {
+            int customerID = Api.GetCustomerIDFromLogin(username, password);
+            int cartID = Api.GetCartIDFromCustomerID(customerID);
+
             using (var connection = new SqlConnection(DatabaseConfig.ConnectionString))
             {
                 connection.Open();
@@ -154,7 +157,8 @@ namespace Robust.Repositories
 
                 command.Parameters.AddWithValue("@CartItemID", cartItem.CartItemID);
                 command.Parameters.AddWithValue("@Quantity", quantity);
-                
+                command.Parameters.AddWithValue("@CartID", cartID);
+
                 int rowsAffected = command.ExecuteNonQuery();
                 return rowsAffected > 0;
             }

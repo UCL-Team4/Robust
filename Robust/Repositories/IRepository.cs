@@ -20,7 +20,7 @@ public interface ICartRepository
 {
     public bool Add(Product product, string username, string password);
     public ObservableCollection<CartItem> GetAll(string username, string password);
-    public bool Update(CartItem cartItem, int quantity, int customerId = 1);
+    public bool Update(CartItem cartItem, int quantity, string username, string password);
     public bool Delete(int cartItemId, string username, string password);
 }
 
