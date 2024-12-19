@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Robust.ViewModel;
 using Robust.ViewModel.ProductViewModel;
+using Robust.ViewModel.ShoppingCart;
 
 namespace Robust.View.ShoppingCart;
 
@@ -24,5 +25,6 @@ public partial class ShoppingCartWindow : Window
     public ShoppingCartWindow()
     {
         InitializeComponent();
+        DataContext = new ShoppingCartViewModel();
     }
 }

@@ -12,6 +12,8 @@ using Robust.MVVM.ViewModelBase;
 using Robust.Model.CartItem;
 using Robust.Repositories;
 using Robust.Repositories.Interface;
+using System.Windows;
+using System.Windows.Data;
 using Robust.ViewModel.User;
 
 namespace Robust.ViewModel.ShoppingCart
@@ -45,6 +47,33 @@ namespace Robust.ViewModel.ShoppingCart
             set
             {
                 _selectedProduct = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(SelectedQuantity));
+            }
+        }
+
+        private int _selectedQuantity = 1;
+
+        public int SelectedQuantity
+        {
+            get 
+            {
+                //return SelectedProduct != null ? SelectedProduct.Quantity : _selectedQuantity;
+                return _selectedQuantity;
+            }
+            set
+            {
+                //if (SelectedProduct != null)
+                //{
+                //    SelectedProduct.Quantity = value;
+                //    OnPropertyChanged();
+                //}
+                //else
+                //{
+                //    _selectedQuantity = value;
+                //    OnPropertyChanged();
+                //}
+                _selectedQuantity = value;
                 OnPropertyChanged();
             }
         }
@@ -88,6 +117,26 @@ namespace Robust.ViewModel.ShoppingCart
         }
 
         private bool CanDeleteSelectedProduct() => SelectedProduct != null;
+
+
+        public RelayCommand UpdateSelectedProductCmd => new RelayCommand(UpdateSelectedProduct, CanUpdateSelectedProduct);
+
+        private void UpdateSelectedProduct()
+        {
+            if (_cartRepository.Update(SelectedProduct, SelectedQuantity, UserStore.username, UserStore.password))
+                MessageBox.Show("Antallet blev opdateret!");
+            else
+                MessageBox.Show("Antallet blev ikke opdateret - der skete en fejl!");
+            UpdateShoppingCartList();
+            CalculateTotalPrice();
+        }
+
+        private bool CanUpdateSelectedProduct() => SelectedProduct != null && SelectedQuantity > 0 && SelectedProduct.Price != 28.00M;
+
+        private void UpdateShoppingCartList()
+        {
+            CollectionViewSource.GetDefaultView(ShoppingCartList).Refresh();
+        }
 
         public ShoppingCartViewModel() 
         {
