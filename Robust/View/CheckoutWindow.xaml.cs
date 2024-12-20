@@ -24,6 +24,41 @@ namespace Robust.View
         {
             InitializeComponent();
             DataContext = new CheckoutViewModel();
+
+            string partialImagePath = $"{AppDomain.CurrentDomain.BaseDirectory}/images";
+
+            AddDeliveryOption("GLS pakkeshop (28.00 DKK)", $"{partialImagePath}/GLS.webp", true);
+            AddDeliveryOption("GLS erhverv (28.00 DKK)", $"{partialImagePath}/GLS.webp", false);
+        }
+
+
+        private void AddDeliveryOption(string text, string imagePath, bool isChecked)
+        {
+            WrapPanel wrapPanel = new WrapPanel();
+
+            TextBlock textBlock = new TextBlock
+            {
+                Text = text
+            };
+            wrapPanel.Children.Add(textBlock);
+
+            Image image = new Image
+            {
+                Width = 40,
+                Margin = new Thickness(5, 0, 0, 0),
+                Source = new BitmapImage(new Uri(imagePath, UriKind.Absolute))
+            };
+            wrapPanel.Children.Add(image);
+
+            RadioButton radioButton = new RadioButton
+            {
+                Margin = new Thickness(0, 0, 0, 5),
+                GroupName = "Delivery",
+                IsChecked = isChecked,
+                Content = wrapPanel
+            };
+
+            DeliveryOptionsContainer.Children.Add(radioButton);
         }
     }
 }

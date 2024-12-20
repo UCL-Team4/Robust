@@ -60,18 +60,22 @@ public class ProductRepository : IRepository
 
             connection.Open();
 
+            string partialImagePath = $"{AppDomain.CurrentDomain.BaseDirectory}/images";
+
             using (SqlDataReader reader = command.ExecuteReader())
             {
                 while (reader.Read())
                 {
                     int CategoryID = (int)reader["CategoryID"];
 
+                    string imagePath = (string)reader["ImagePath"];
+
                     Product product = new Product
                     {
                         ProductID = (int)reader["ProductID"],
                         Name = (string)reader["Name"],
                         Description = (string)reader["Description"],
-                        ImagePath = (string)reader["ImagePath"],
+                        ImagePath = $"{partialImagePath}/{imagePath}",
                         Price = (decimal)reader["Price"],
                         Category = (Category)CategoryID
                     };

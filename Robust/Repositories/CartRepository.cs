@@ -124,15 +124,18 @@ namespace Robust.Repositories
 
                 connection.Open();
 
+                string partialImagePath = $"{AppDomain.CurrentDomain.BaseDirectory}/images";
                 using var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
+                    string imagePath = (string)reader["ImagePath"];
+
                     cartItems.Add(new CartItem
                     {
                         ProductID = (int)reader["ProductID"],
                         CartID = cartId,
                         Name = (string)reader["Name"],
-                        ImagePath = (string)reader["ImagePath"],
+                        ImagePath = $"{partialImagePath}/{imagePath}",
                         Price = (decimal)reader["Price"],
                         Quantity = (int)reader["Quantity"],
                         CartItemID = (int)reader["CartItemID"],
