@@ -129,13 +129,14 @@ namespace Robust.Repositories
                 while (reader.Read())
                 {
                     string imagePath = (string)reader["ImagePath"];
+                    int CategoryID = (int)reader["CategoryID"];
 
                     cartItems.Add(new CartItem
                     {
                         ProductID = (int)reader["ProductID"],
                         CartID = cartId,
                         Name = (string)reader["Name"],
-                        ImagePath = $"{partialImagePath}/{imagePath}",
+                        ImagePath = CategoryID == 5 ? imagePath : $"{partialImagePath}/{imagePath}",
                         Price = (decimal)reader["Price"],
                         Quantity = (int)reader["Quantity"],
                         CartItemID = (int)reader["CartItemID"],

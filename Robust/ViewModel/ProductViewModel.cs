@@ -202,7 +202,7 @@ public class ProductViewModel : ViewModelBase
         return SelectedProduct != null;
     }
 
-    public RelayCommand CreateCustomPictogramCmd => new RelayCommand(CreateCustomPictogram);
+    public RelayCommand CreateCustomPictogramCmd => new RelayCommand(CreateCustomPictogram, CanShowShoppingCart);
 
     private void CreateCustomPictogram()
     {

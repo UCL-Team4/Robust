@@ -75,7 +75,7 @@ public class ProductRepository : IRepository
                         ProductID = (int)reader["ProductID"],
                         Name = (string)reader["Name"],
                         Description = (string)reader["Description"],
-                        ImagePath = $"{partialImagePath}/{imagePath}",
+                        ImagePath = isPictogram ? imagePath : $"{partialImagePath}/{imagePath}",
                         Price = (decimal)reader["Price"],
                         Category = (Category)CategoryID
                     };
