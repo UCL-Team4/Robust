@@ -107,32 +107,8 @@
                     BorderThickness="2"
                     CornerRadius="2">
                     <StackPanel
+                        x:Name="DeliveryOptionsContainer"
                         MinHeight="275">
-                        <RadioButton
-                            Margin="0,0,0,5"
-                            GroupName="Delivery"
-                            IsChecked="True">
-                            <WrapPanel>
-                                <TextBlock
-                                    Text="GLS pakkeshop (28.00 DKK)"/>
-                                <Image 
-                                    Margin="5,0,0,0"
-                                    Source="C:/temp/Robust/GLS.png"
-                                    Width="40"/>
-                            </WrapPanel>
-                        </RadioButton>
-                        <RadioButton
-                            Margin="0,0,0,5"
-                            GroupName="Delivery">
-                            <WrapPanel>
-                                <TextBlock
-                                    Text="GLS erhverv (28.00 DKK)" />
-                                <Image
-                                    Margin="5,0,0,0"
-                                    Source="C:/temp/Robust/GLS.png"
-                                    Width="40" />
-                            </WrapPanel>
-                        </RadioButton>
                     </StackPanel>
                 </Border>
             </StackPanel>

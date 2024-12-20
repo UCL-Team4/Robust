@@ -20,10 +20,41 @@ namespace Robust.View
     /// </summary>
     public partial class LoginWindow : Window
     {
+        private void CreateShoppingCartImage()
+        {
+            Image image = new()
+            {
+                Width = 40,
+                Height = 40
+            };
+
+            string imagePath = $"{AppDomain.CurrentDomain.BaseDirectory}/images/ShoppingCartWebShop.webp";
+            image.Source = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
+
+            ShoppingCartButton.Content = image;
+        }
+
+        private void CreateLoginCartImage()
+        {
+            Image image = new()
+            {
+                Width = 40,
+                Height = 40
+            };
+
+            string imagePath = $"{AppDomain.CurrentDomain.BaseDirectory}/images/Login.webp";
+            image.Source = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
+
+            LoginWindowButton.Content = image;
+        }
+
+
         public LoginWindow()
         {
             InitializeComponent();
             DataContext = new LoginViewModel();
+            CreateLoginCartImage();
+            CreateShoppingCartImage();
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
