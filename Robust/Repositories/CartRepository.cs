@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Robust.Repositories
 {
-    internal class CartRepository : ICartRepository
+    public class CartRepository : ICartRepository
     {
         private int CreateCart(int customerId)
         {

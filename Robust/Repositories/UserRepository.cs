@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Robust.Repositories.User;
 
-class UserRepository : IUserRepository
+public class UserRepository : IUserRepository
 {
     public int? Login(string email, string password)
     {
